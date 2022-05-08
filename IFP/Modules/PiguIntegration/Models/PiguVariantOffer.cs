@@ -1,12 +1,7 @@
-﻿using Ikrito_Fulfillment_Platform.Utils;
+﻿using IFP.Utils;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
 
-namespace IFP.PiguIntegration.Models
+namespace IFP.Modules.PiguIntegration.Models
 {
     internal class PiguVariantOffer
     {

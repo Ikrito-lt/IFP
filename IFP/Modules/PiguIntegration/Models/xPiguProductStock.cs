@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace IFP.Modules.PiguIntegration.Models
+﻿namespace IFP.Modules.PiguIntegration.Models
 {
     internal class xPiguProductStock
     {

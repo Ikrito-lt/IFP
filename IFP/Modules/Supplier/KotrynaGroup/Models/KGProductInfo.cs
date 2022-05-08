@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace IFP.Modules.Supplier.KotrynaGroup.Modules {
+namespace IFP.Modules.Supplier.KotrynaGroup.Modules
+{
     class KGProductInfo {
         public string axapta_id { set; get; }
         public string kpn { set; get; }

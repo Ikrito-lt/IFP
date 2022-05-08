@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace IFP.Modules.Supplier.KotrynaGroup.Modules {
+namespace IFP.Modules.Supplier.KotrynaGroup.Modules
+{
     class KGProductPackaging {
 
         public string axapta_id { set; get; }
         public List<Packaging> packagings = new();
-
     }
 
     public class Packaging {

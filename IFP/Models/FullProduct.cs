@@ -5,28 +5,28 @@ using System.Linq;
 namespace IFP.Models
 {
     /// <summary>
-    /// Class for storring full product model
+    /// Class for storing full product model
     /// </summary>
     public class FullProduct
     {
-        public string? SKU { set; get; } = "Product SKU Not Set";
+        public string SKU { set; get; } = "Product SKU Not Set";
         public string ProductTypeID { set; get; } = "Product Category ID Not Set";
         public string Vendor { set; get; } = "Product Vendor Not Set";
         public string TitleLT { set; get; } = "Product LT Title Not Set";
-        public string? TitleLV { set; get; }
-        public string? TitleEE { set; get; }
-        public string? TitleRU { set; get; }
+        public string TitleLV { set; get; }
+        public string TitleEE { set; get; }
+        public string TitleRU { set; get; }
         public string DescLT { set; get; } = "Product LT Description Not Set";
-        public string? DescLV { set; get; }
-        public string? DescEE { set; get; }
-        public string? DescRU { set; get; }
+        public string DescLV { set; get; }
+        public string DescEE { set; get; }
+        public string DescRU { set; get; }
         public double Weight { set; get; }              //in kg
         public int Height { set; get; }                 //in mm
         public int Lenght { set; get; }                 //in mm
         public int Width { set; get; }                  //in mm
-        public string? ProductTypeVendor { set; get; }  //for saving vendor product type to database.
-        public string? DeliveryTime { set; get; }       //delivery time string
-        public string? AddedTimeStamp { set; get; }     //timestamp of when product was created
+        public string ProductTypeVendor { set; get; }  //for saving vendor product type to database.
+        public string DeliveryTime { set; get; }       //delivery time string
+        public string AddedTimeStamp { set; get; }     //timestamp of when product was created
         public DateTime GetAddedTime()
         {
 
@@ -43,8 +43,8 @@ namespace IFP.Models
         public Dictionary<string, string> ProductAttributtes = new();
 
         //for util
-        public string? Status { set; get; }              //for product status as in sync Status
-        public string? ProductTypeDisplayVal { set; get; }   // for saving category text val
+        public string Status { set; get; }              //for product status as in sync Status
+        public string ProductTypeDisplayVal { set; get; }   // for saving category text val
 
         //for showing data to screen
         public string VariantCount => ProductVariants?.Count > 0 ? ProductVariants.Count.ToString() : "0";
@@ -62,10 +62,10 @@ namespace IFP.Models
             public double Price { set; get; }
             public int VendorStock { set; get; }
             public int OurStock { set; get; }
-            public string? Barcode { set; get; }
+            public string Barcode { set; get; }
             public double PriceVendor { set; get; }
-            public string? VariantType { set; get; }
-            public string? VariantData { set; get; }
+            public string VariantType { set; get; }
+            public string VariantData { set; get; }
             public bool PermPrice { set; get; }
 
             public bool isSame(ProductVariant other)

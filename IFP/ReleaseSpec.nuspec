@@ -9,7 +9,7 @@
     <license type="expression">MIT</license>
     <description>description</description>
     <copyright>Luke1453 MIT</copyright>
-    <!--<icon></icon>--> 
+    <icon>Cash_icon.ico</icon> 
     <!--<projectUrl>http://project_url_here_or_delete_this_line/</projectUrl>-->
     <!--<releaseNotes>Summary of changes made in this release of the package.</releaseNotes>-->
     <!--<tags>Tag1 Tag2</tags>-->

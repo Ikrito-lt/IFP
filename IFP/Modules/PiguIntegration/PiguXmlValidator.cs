@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Schema;
 
 namespace IFP.Modules.PiguIntegration
 {
@@ -10,6 +8,7 @@ namespace IFP.Modules.PiguIntegration
     {
         public static void Validate(XmlDocument doc)
         {
+            // ToDo: Make Xml Validation
             //var path = new Uri(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase)).LocalPath;
             //XmlSchemaSet schema = new XmlSchemaSet();
             //schema.Add("", path + "\\input.xsd");
@@ -20,7 +19,7 @@ namespace IFP.Modules.PiguIntegration
         static void ValidationEventHandler(object sender, ValidationEventArgs e)
         {
             XmlSeverityType type = XmlSeverityType.Warning;
-            if (Enum.TryParse<XmlSeverityType>("Error", out type))
+            if (Enum.TryParse("Error", out type))
             {
                 if (type == XmlSeverityType.Error) throw new Exception(e.Message);
             }

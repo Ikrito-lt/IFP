@@ -1,19 +1,17 @@
-﻿using Ikrito_Fulfillment_Platform.Models;
-using Ikrito_Fulfillment_Platform.Modules.Supplier.KotrynaGroup.Modules;
-using Ikrito_Fulfillment_Platform.Utils;
+﻿using IFP.Models;
+using IFP.Modules.Supplier.KotrynaGroup.Modules;
+using IFP.Utils;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using static Ikrito_Fulfillment_Platform.Models.FullProduct;
+using static IFP.Models.FullProduct;
 
-namespace IFP.Modules.Supplier.KotrynaGroup {
+namespace IFP.Modules.Supplier.KotrynaGroup
+{
     static class KGModule {
 
         private const string KGApi = Globals.KGApi;

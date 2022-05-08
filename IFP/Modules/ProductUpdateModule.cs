@@ -1,8 +1,7 @@
-﻿using System;
+﻿using IFP.Models;
+using IFP.Utils;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace IFP.Modules
 {
@@ -42,7 +41,6 @@ namespace IFP.Modules
             }
 
             var result = db.Table("Products").Where(whereCond).Get();
-
             foreach (var row in result.Values)
             {
                 ProductState syncProduct = new();
@@ -51,9 +49,6 @@ namespace IFP.Modules
                 syncProduct.productType_ID = row["ProductType_ID"];
                 syncProduct.status = row["Status"];
                 syncProduct.lastUpdateTime = row["LastUpdateTime"].UnixTimeToSrt();
-                syncProduct.shopifyID = row["ShopifyID"];
-                syncProduct.inventoryItemID = row["ShopifyInventoryItemID"];
-                syncProduct.shopifyVariantID = row["ShopifyVariantID"];
 
                 if (row["LastSyncTime"] == null || row["LastSyncTime"] == "")
                 {

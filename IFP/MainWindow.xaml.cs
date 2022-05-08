@@ -1,4 +1,5 @@
-﻿using IFP.Utils;
+﻿using IFP.Pages;
+using IFP.Utils;
 using System.Windows;
 using System.Windows.Controls;
 

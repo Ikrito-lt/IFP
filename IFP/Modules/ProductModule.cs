@@ -1,8 +1,9 @@
-﻿using System;
+﻿using IFP.Models;
+using IFP.Utils;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
+using static IFP.Models.FullProduct;
 
 namespace IFP.Modules
 {

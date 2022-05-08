@@ -1,8 +1,15 @@
-﻿using System;
+﻿using IFP.Models;
+using IFP.Modules.Supplier.BeFancy;
+using IFP.Modules.Supplier.KotrynaGroup;
+using IFP.Modules.Supplier.Pretendentas;
+using IFP.Modules.Supplier.TDBaltic;
+using IFP.Utils;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
+using static IFP.Models.FullProduct;
 
 namespace IFP.Modules.Supplier
 {

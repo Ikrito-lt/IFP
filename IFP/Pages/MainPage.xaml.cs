@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using IFP.Models;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -86,7 +88,7 @@ namespace IFP.Pages
         {
             Dictionary<string, List<Order>> result = new();
             result.Add("newOrders", new List<Order>());
-            result.Add("fulfilledOrders", OrderModule.getFulfilledOrders());
+            result.Add("fulfilledOrders", new List<Order>());
 
             e.Result = result;
         }

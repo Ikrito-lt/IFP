@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using IFP.Models;
+using IFP.Modules;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace IFP.Pages
 {
@@ -74,7 +65,7 @@ namespace IFP.Pages
 
         private void FulfillOrderButton_Click(object sender, RoutedEventArgs e)
         {
-            OrderModule.FulFillOrder(OrderInfo);
+            //OrderModule.FulFillOrder(OrderInfo);
 
             if (PreviousPage is MainPage)
             {

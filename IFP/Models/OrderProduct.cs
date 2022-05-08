@@ -1,18 +1,15 @@
-﻿using Ikrito_Fulfillment_Platform.Utils;
+﻿using IFP.Utils;
 
 namespace IFP.Models
 {
     public class OrderProduct {
-        //shopify_ID
-        public string id { set; get; }
         //DB_ID
-        public string DBID { set; get; }
-        public string OrderDBID { set; get; }
-
-        public string sku { set; get; }
-        public string name { set; get; }
+        public string DBID { set; get; } = "Order Product DBID Not Set";
+        public string OrderDBID { set; get; } = "Order DBID Not Set";
+        public string sku { set; get; } = "Order Product SKU Not Set";
+        public string vendor { set; get; } = "Order Product Vendor Not Set";
+        public string name { set; get; } = "Order Product Name Not Set";
         public string name_trimmed => name.Trim().Truncate(65);
-        public string vendor { set; get; }
 
         public int quantity { set; get; }
         public string vnt => $"{quantity} vnt.";
@@ -27,7 +24,7 @@ namespace IFP.Models
         public bool product_exists { set; get; }
         public bool taxable { set; get; }
 
-        public string product_id { set; get; }
-        public string variant_id { set; get; }
+        public string Barcode { set; get; } = "Order Product Barcode Not Set";
+        public string variantName { set; get; } = "Order Product Variant Name Not Set";
     }
 }

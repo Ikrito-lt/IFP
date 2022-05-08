@@ -1,4 +1,6 @@
-﻿using System;
+﻿using IFP.Models;
+using IFP.Modules;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 

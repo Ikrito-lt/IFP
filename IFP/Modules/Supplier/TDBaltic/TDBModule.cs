@@ -1,11 +1,11 @@
-﻿using Ikrito_Fulfillment_Platform.Models;
-using Ikrito_Fulfillment_Platform.Utils;
+﻿using IFP.Models;
+using IFP.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
-using static Ikrito_Fulfillment_Platform.Models.FullProduct;
+using static IFP.Models.FullProduct;
 
 namespace IFP.Modules.Supplier.TDBaltic
 {

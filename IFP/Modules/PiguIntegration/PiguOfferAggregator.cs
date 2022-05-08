@@ -1,8 +1,14 @@
-﻿using System;
+﻿using IFP.AWS;
+using IFP.Models;
+using IFP.Modules.PiguIntegration.Models;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace IFP.Modules.PiguIntegration
 {
