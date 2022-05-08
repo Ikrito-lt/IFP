@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using IFP.Utils;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace IFP
 {
@@ -20,9 +9,45 @@ namespace IFP
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public static MainWindow Instance { get; private set; }
+        private const string WindowTitle = "Ikrito Fulfillment Platform";
+
+        static MainWindow()
+        {
+            Instance = new MainWindow();
+        }
+
+        private MainWindow()
         {
             InitializeComponent();
+            setFrame(MainPage.Instance);
+            test();
+        }
+
+        /// <summary>
+        /// for changing window title
+        /// </summary>
+        /// <param name="title"></param>
+        public void SetWindowTitle(string title = WindowTitle)
+        {
+            this.Title = title;
+        }
+
+        /// <summary>
+        /// for chanign the page shown by the window
+        /// </summary>
+        /// <param name="page"></param>
+        public void setFrame(Page page)
+        {
+            mainFrame.Content = page;
+        }
+
+        /// <summary>
+        /// for running ode form test object
+        /// </summary>
+        public static void test()
+        {
+            Test t = new();
         }
     }
 }
