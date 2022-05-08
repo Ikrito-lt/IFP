@@ -365,4 +365,4 @@ FodyWeavers.xsd
 
 # ADDED BY ME
 Utils/Globals.cs
-!Deployment/**Utils/Globals.cs
+!Deployment/**
