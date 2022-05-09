@@ -29,9 +29,8 @@ namespace IFP.Pages
         private readonly List<Order> newOrders = new();
         private readonly List<Order> fulfilledOrders = new();
 
-        //
+
         // Data grid manipulation section
-        //
 
         /// <summary>
         /// changes text to say how much orders there is
@@ -189,6 +188,11 @@ namespace IFP.Pages
             MainWindow.Instance.mainFrame.Content = new OrderInfoPage(order, this, false);
         }
 
+        /// <summary>
+        /// Opens settings Page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
             MainWindow.Instance.setFrame(SettingsPage.Instance);

@@ -3,6 +3,7 @@ using IFP.Modules.Supplier.BeFancy;
 using IFP.Modules.Supplier.KotrynaGroup;
 using IFP.Modules.Supplier.Pretendentas;
 using IFP.Modules.Supplier.TDBaltic;
+using IFP.Singletons;
 using IFP.Utils;
 using System;
 using System.Collections.Generic;
@@ -59,7 +60,7 @@ namespace IFP.Modules.Supplier
 
             //getting DB Products
             Dictionary<string, FullProduct> DBProducts = new Dictionary<string, FullProduct>();
-            foreach ((string sku, FullProduct DBProduct) in ProductModule.GetVendorProducts(TablePrefix))
+            foreach ((string sku, FullProduct DBProduct) in ProductStore.GetVendorProducts(TablePrefix))
             {
                 DBProducts.Add(sku, DBProduct);
             }
@@ -99,7 +100,7 @@ namespace IFP.Modules.Supplier
             {
                 try
                 {
-                    ProductModule.ChangeProductStatus(archiveProduct.SKU, ProductStatus.Archived, false);
+                    ProductStore.ChangeProductStatus(archiveProduct.SKU, ProductStatus.Archived, false);
                     ProductVariant firstVariant = archiveProduct.ProductVariants.First();
 
                     ProductChangeRecord archiveChange = new ProductChangeRecord
@@ -136,7 +137,7 @@ namespace IFP.Modules.Supplier
             // adding new Products
             foreach (var (newProduct, index) in NewProducts.LoopIndex())
             {
-                ProductModule.AddProductToDB(newProduct);
+                ProductStore.AddProductToDB(newProduct);
 
                 ProductVariant firstVariant = newProduct.ProductVariants.First();
                 ProductChangeRecord newChange = new ProductChangeRecord
@@ -302,13 +303,13 @@ namespace IFP.Modules.Supplier
                     if (oldProduct.Status != ProductStatus.New)
                     {
                         //checking if product isn out of stock
-                        if (ProductModule.CheckIfProductOutOfStock(updateProduct))
+                        if (ProductStore.CheckIfProductOutOfStock(updateProduct))
                         {
-                            ProductModule.ChangeProductStatus(oldProduct.SKU, ProductStatus.Ok, false);
+                            ProductStore.ChangeProductStatus(oldProduct.SKU, ProductStatus.Ok, false);
                         }
                         else
                         {
-                            ProductModule.ChangeProductStatus(oldProduct.SKU, ProductStatus.OutOfStock, false);
+                            ProductStore.ChangeProductStatus(oldProduct.SKU, ProductStatus.OutOfStock, false);
                         }
                     }
                 }

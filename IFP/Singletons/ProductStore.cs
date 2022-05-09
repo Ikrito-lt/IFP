@@ -1,16 +1,177 @@
 ﻿using IFP.Models;
+using IFP.Modules;
 using IFP.Utils;
 using System;
 using System.Collections.Generic;
 using System.Windows;
 using static IFP.Models.FullProduct;
 
-namespace IFP.Modules
+namespace IFP.Singletons
 {
-    static class ProductModule
+    /// <summary>
+    /// This singleton is used to store products
+    /// </summary>
+    internal class ProductStore
     {
+        public Dictionary<string, FullProduct> ProductKVP;
+
+        // Making this class into a singleton
+        public static ProductStore Instance { get; private set; }
+        static ProductStore()
+        {
+            Instance = new ProductStore();
+        }
+
+        // Section for getting product lists from database
+
         /// <summary>
-        /// method for checking if product is out  of stock (to set its status) (if atleast one of the variants is in stock method return true)
+        /// Method for refreashing product KVP
+        /// </summary>
+        public void GetProductKVP()
+        {
+            ProductKVP = GetAllProducts();
+        }
+
+        //todo: this is slow consider multithreading
+        /// <summary>
+        /// method gets list of all Products in database
+        /// </summary>
+        /// <returns></returns>
+        private static Dictionary<string, FullProduct> GetAllProducts()
+        {
+            Dictionary<string, FullProduct> p = new();
+
+            Dictionary<string, FullProduct> TDBproducts = GetVendorProducts("TDB");
+            p.AddRange(TDBproducts);
+
+            Dictionary<string, FullProduct> KGproducts = GetVendorProducts("KG");
+            p.AddRange(KGproducts);
+
+            Dictionary<string, FullProduct> PDproducts = GetVendorProducts("PD");
+            p.AddRange(PDproducts);
+
+            Dictionary<string, FullProduct> BFproducts = GetVendorProducts("BF");
+            p.AddRange(BFproducts);
+
+            //getting category display names
+            foreach ((string sku, FullProduct TempProduct) in p)
+            {
+                TempProduct.ProductTypeDisplayVal = ProductCategoryStore.Instance.CategoryKVP[TempProduct.ProductTypeID];
+            }
+
+            return p;
+        }
+
+        /// <summary>
+        /// method gets list of {Vendor} products
+        /// </summary>
+        /// <param name="TablePrefix"></param>
+        /// <returns></returns>
+        public static Dictionary<string, FullProduct> GetVendorProducts(string TablePrefix)
+        {
+            Dictionary<string, FullProduct> productsKVP = new();
+
+            //getting main product info
+            DataBaseInterface db = new();
+            var result = db.Table($"_{TablePrefix}_Products").Get();
+            foreach (var prod in result.Values)
+            {
+
+                FullProduct NewProduct = new();
+                NewProduct.TitleLT = prod["Title"];
+                NewProduct.TitleLV = prod["TitleLV"];
+                NewProduct.TitleEE = prod["TitleEE"];
+                NewProduct.TitleRU = prod["TitleRU"];
+
+                NewProduct.DescLT = prod["Body"];
+                NewProduct.DescLV = prod["BodyLV"];
+                NewProduct.DescEE = prod["BodyEE"];
+                NewProduct.DescRU = prod["BodyRU"];
+
+                NewProduct.Vendor = prod["Vendor"];
+                NewProduct.ProductTypeID = prod["ProductType_ID"];
+                NewProduct.SKU = prod["SKU"];
+                NewProduct.Weight = double.Parse(prod["Weight"]);
+                NewProduct.Height = int.Parse(prod["Height"]);
+                NewProduct.Lenght = int.Parse(prod["Lenght"]);
+                NewProduct.Width = int.Parse(prod["Width"]);
+
+                NewProduct.AddedTimeStamp = prod["AddedTimeStamp"];
+                NewProduct.DeliveryTime = prod["DeliveryTimeText"];
+                NewProduct.ProductTypeVendor = prod["ProductTypeVendor"];
+
+                productsKVP.Add(prod["SKU"], NewProduct);
+            }
+
+            //getting images faster
+            result = db.Table($"_{TablePrefix}_Images").Get();
+            foreach (var imgRow in result.Values)
+            {
+
+                string sku = imgRow["SKU"];
+                string imageUrl = imgRow["ImgUrl"];
+
+                productsKVP[sku].Images.Add(imageUrl);
+            }
+
+            //getting tags faster
+            result = db.Table($"_{TablePrefix}_Tags").Get();
+            foreach (var tagRow in result.Values)
+            {
+
+                string sku = tagRow["SKU"];
+                string tag = tagRow["Tag"];
+
+                productsKVP[sku].Tags.Add(tag);
+            }
+
+            //getting variants faster
+            result = db.Table($"_{TablePrefix}_Variants").Get();
+            foreach (var row in result.Values)
+            {
+                string sku = row["SKU"];
+                ProductVariant variant = new();
+                variant.VariantDBID = int.Parse(row["ID"]);
+                variant.Price = double.Parse(row["Price"]);
+                variant.PriceVendor = double.Parse(row["PriceVendor"]);
+                variant.VendorStock = int.Parse(row["VendorStock"]);
+                variant.OurStock = int.Parse(row["OurStock"]);
+                variant.Barcode = row["Barcode"];
+                variant.VariantType = row["VariantType"];
+                variant.VariantData = row["VariantData"];
+                variant.PermPrice = row["PermPrice"] == "False" ? false : true;
+
+                productsKVP[sku].ProductVariants.Add(variant);
+            }
+
+            //getting attributes faster
+            result = db.Table($"_{TablePrefix}_Attributes").Get();
+            foreach (var row in result.Values)
+            {
+                string sku = row["SKU"];
+                string name = row["Name"];
+                string data = row["Data"];
+
+                productsKVP[sku].ProductAttributtes.Add(name, data);
+            }
+
+            //getting products statuses
+            result = db.ExecuteTextQuery($"SELECT SKU, Status FROM Products WHERE SKU LIKE \"{TablePrefix}%\";");
+            foreach (var statusRow in result.Values)
+            {
+                string sku = statusRow["SKU"];
+                string status = statusRow["Status"];
+
+                productsKVP[sku].Status = status;
+            }
+            return productsKVP;
+        }
+
+
+        // Section with methods that are needed for product statuses
+
+        /// <summary>
+        /// Method for checking if product is out  of stock (to set its status) (if atleast one of the variants is in stock method return true)
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
@@ -25,10 +186,6 @@ namespace IFP.Modules
             }
             return false;
         }
-
-        //
-        // Section with methods that are needed for product statuses
-        //
 
         /// <summary>
         /// method taht gets product tatus for DB using product SKU
@@ -164,9 +321,7 @@ namespace IFP.Modules
         }
 
 
-        //
-        // Section of methods that are responsible for managign individual products in database
-        //
+        // Section of methods that are responsible for managing individual products in database
 
         /// <summary>
         /// method for deleting product form database 
@@ -267,7 +422,7 @@ namespace IFP.Modules
             }
 
             //getting category dicplay value
-            var catKVP = ProductCategoryModule.Instance.CategoryKVP;
+            var catKVP = ProductCategoryStore.Instance.CategoryKVP;
             prod.ProductTypeDisplayVal = catKVP[prod.ProductTypeID];
 
             //getting product status
@@ -609,140 +764,6 @@ namespace IFP.Modules
             {
                 MessageBox.Show("An exception just occurred:\n" + ex.Message + "\n\nSend screenshot you know where.", "Change Product Status Exception", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }
-
-
-        //
-        // Section for getting product lists from database
-        //
-
-        /// <summary>
-        /// method gets list of {Vendor} products
-        /// </summary>
-        /// <param name="TablePrefix"></param>
-        /// <returns></returns>
-        public static Dictionary<string, FullProduct> GetVendorProducts(string TablePrefix)
-        {
-            Dictionary<string, FullProduct> productsKVP = new();
-
-            //getting main product info
-            DataBaseInterface db = new();
-            var result = db.Table($"_{TablePrefix}_Products").Get();
-            foreach (var prod in result.Values)
-            {
-
-                FullProduct NewProduct = new();
-                NewProduct.TitleLT = prod["Title"];
-                NewProduct.TitleLV = prod["TitleLV"];
-                NewProduct.TitleEE = prod["TitleEE"];
-                NewProduct.TitleRU = prod["TitleRU"];
-
-                NewProduct.DescLT = prod["Body"];
-                NewProduct.DescLV = prod["BodyLV"];
-                NewProduct.DescEE = prod["BodyEE"];
-                NewProduct.DescRU = prod["BodyRU"];
-
-                NewProduct.Vendor = prod["Vendor"];
-                NewProduct.ProductTypeID = prod["ProductType_ID"];
-                NewProduct.SKU = prod["SKU"];
-                NewProduct.Weight = double.Parse(prod["Weight"]);
-                NewProduct.Height = int.Parse(prod["Height"]);
-                NewProduct.Lenght = int.Parse(prod["Lenght"]);
-                NewProduct.Width = int.Parse(prod["Width"]);
-
-                NewProduct.AddedTimeStamp = prod["AddedTimeStamp"];
-                NewProduct.DeliveryTime = prod["DeliveryTimeText"];
-                NewProduct.ProductTypeVendor = prod["ProductTypeVendor"];
-
-                productsKVP.Add(prod["SKU"], NewProduct);
-            }
-
-            //getting images faster
-            result = db.Table($"_{TablePrefix}_Images").Get();
-            foreach (var imgRow in result.Values)
-            {
-
-                string sku = imgRow["SKU"];
-                string imageUrl = imgRow["ImgUrl"];
-
-                productsKVP[sku].Images.Add(imageUrl);
-            }
-
-            //getting tags faster
-            result = db.Table($"_{TablePrefix}_Tags").Get();
-            foreach (var tagRow in result.Values)
-            {
-
-                string sku = tagRow["SKU"];
-                string tag = tagRow["Tag"];
-
-                productsKVP[sku].Tags.Add(tag);
-            }
-
-            //getting variants faster
-            result = db.Table($"_{TablePrefix}_Variants").Get();
-            foreach (var row in result.Values)
-            {
-                string sku = row["SKU"];
-                ProductVariant variant = new();
-                variant.VariantDBID = int.Parse(row["ID"]);
-                variant.Price = double.Parse(row["Price"]);
-                variant.PriceVendor = double.Parse(row["PriceVendor"]);
-                variant.VendorStock = int.Parse(row["VendorStock"]);
-                variant.OurStock = int.Parse(row["OurStock"]);
-                variant.Barcode = row["Barcode"];
-                variant.VariantType = row["VariantType"];
-                variant.VariantData = row["VariantData"];
-                variant.PermPrice = row["PermPrice"] == "False" ? false : true;
-
-                productsKVP[sku].ProductVariants.Add(variant);
-            }
-
-            //getting attributes faster
-            result = db.Table($"_{TablePrefix}_Attributes").Get();
-            foreach (var row in result.Values)
-            {
-                string sku = row["SKU"];
-                string name = row["Name"];
-                string data = row["Data"];
-
-                productsKVP[sku].ProductAttributtes.Add(name, data);
-            }
-
-            //getting products statuses
-            result = db.ExecuteTextQuery($"SELECT SKU, Status FROM Products WHERE SKU LIKE \"{TablePrefix}%\";");
-            foreach (var statusRow in result.Values)
-            {
-                string sku = statusRow["SKU"];
-                string status = statusRow["Status"];
-
-                productsKVP[sku].Status = status;
-            }
-            return productsKVP;
-        }
-
-        //todo: this is slow consider multithreading
-        /// <summary>
-        /// method gets list of all Products in database
-        /// </summary>
-        /// <returns></returns>
-        public static Dictionary<string, FullProduct> GetAllProducts()
-        {
-            Dictionary<string, FullProduct> p = new();
-
-            //Dictionary<string, FullProduct> TDBproducts = GetVendorProducts("TDB");
-            //p.AddRange(TDBproducts);
-
-            Dictionary<string, FullProduct> KGproducts = GetVendorProducts("KG");
-            p.AddRange(KGproducts);
-
-            //Dictionary<string, FullProduct> PDproducts = GetVendorProducts("PD");
-            //p.AddRange(PDproducts);
-
-            //Dictionary<string, FullProduct> BFproducts = GetVendorProducts("BF");
-            //p.AddRange(BFproducts);
-
-            return p;
         }
     }
 }

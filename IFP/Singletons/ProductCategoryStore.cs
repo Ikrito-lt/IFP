@@ -1,19 +1,20 @@
-﻿using IFP.Utils;
+﻿using IFP.Modules;
+using IFP.Utils;
 using System;
 using System.Collections.Generic;
 
-namespace IFP.Modules
+namespace IFP.Singletons
 {
-    internal class ProductCategoryModule
+    internal class ProductCategoryStore
     {
         //this singleton is used to retrieve and store product categories
         private readonly Lazy<Dictionary<string, string>> _LazyCategoryKVP = new(() => GetCategoriesDictionary());
         public Dictionary<string, string> CategoryKVP => _LazyCategoryKVP.Value;
 
-        public static ProductCategoryModule Instance { get; private set; }
-        static ProductCategoryModule()
+        public static ProductCategoryStore Instance { get; private set; }
+        static ProductCategoryStore()
         {
-            Instance = new ProductCategoryModule();
+            Instance = new ProductCategoryStore();
         }
 
         //
@@ -67,6 +68,5 @@ namespace IFP.Modules
             }
             return categoriesKVP;
         }
-
     }
 }

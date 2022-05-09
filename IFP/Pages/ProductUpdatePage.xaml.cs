@@ -1,6 +1,7 @@
 ﻿using IFP.Models;
 using IFP.Modules;
 using IFP.Modules.Supplier;
+using IFP.Singletons;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -246,7 +247,7 @@ namespace IFP.Pages
             if (sender is ListBoxItem listboxItem)
             {
                 ProductChangeRecord productChange = listboxItem.Content as ProductChangeRecord;
-                FullProduct editProduct = ProductModule.GetProduct(productChange.SKU);
+                FullProduct editProduct = ProductStore.GetProduct(productChange.SKU);
                 MainWindow.Instance.mainFrame.Content = new ProductInfoPage(editProduct, this);
             }
         }

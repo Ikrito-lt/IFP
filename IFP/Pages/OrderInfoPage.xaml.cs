@@ -1,5 +1,6 @@
 ﻿using IFP.Models;
 using IFP.Modules;
+using IFP.Singletons;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -11,7 +12,6 @@ namespace IFP.Pages
     /// </summary>
     public partial class OrderInfoPage : Page
     {
-
         private readonly Order OrderInfo;
         private readonly Page PreviousPage;
 
@@ -58,7 +58,7 @@ namespace IFP.Pages
             if (sender is ListBoxItem listboxItem)
             {
                 OrderProduct orderProduct = listboxItem.Content as OrderProduct;
-                FullProduct viewProduct = ProductModule.GetProduct(orderProduct.sku);
+                FullProduct viewProduct = ProductStore.GetProduct(orderProduct.sku);
                 MainWindow.Instance.mainFrame.Content = new ProductInfoPage(viewProduct, this);
             }
         }

@@ -1,5 +1,6 @@
 ﻿using IFP.Models;
 using IFP.Modules;
+using IFP.Singletons;
 using IFP.Utils;
 using Microsoft.VisualStudio.PlatformUI;
 using System;
@@ -252,8 +253,8 @@ namespace IFP.Pages
         /// <param name="e"></param>
         private void DeleteProductButton_Click(object sender, RoutedEventArgs e)
         {
-            ProductModule.DeleteProduct(EditableProduct.SKU);
-            //todo: delete product from system
+            ProductStore.DeleteProduct(EditableProduct.SKU);
+            ProductStore.Instance.ProductKVP.Remove(EditableProduct.SKU);
             NavigateToPreviousPage();
         }
 

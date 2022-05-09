@@ -1,4 +1,5 @@
 ﻿using IFP.Models;
+using IFP.Singletons;
 using IFP.Utils;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -75,7 +76,8 @@ namespace IFP.Modules
             worker.ReportProgress(promiles, (true, $"Downloading Products From DataBase"));
 
             //downloading list of all products
-            Dictionary<string, FullProduct> fullProducts = ProductModule.GetAllProducts();
+            ProductStore.Instance.GetProductKVP();
+            Dictionary<string, FullProduct> fullProducts = ProductStore.Instance.ProductKVP;
 
             //looping and changing statuses if necessery 
             int productCount = fullProducts.Count;
@@ -89,9 +91,9 @@ namespace IFP.Modules
                 if (product.Status != ProductStatus.New)
                 {
                     //checking if product isn out of stock
-                    if (!ProductModule.CheckIfProductOutOfStock(product))
+                    if (!ProductStore.CheckIfProductOutOfStock(product))
                     {
-                        ProductModule.ChangeProductStatus(sku, ProductStatus.OutOfStock, false);
+                        ProductStore.ChangeProductStatus(sku, ProductStatus.OutOfStock, false);
                     }
                 }
             }

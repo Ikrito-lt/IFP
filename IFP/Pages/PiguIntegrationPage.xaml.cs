@@ -2,6 +2,7 @@
 using IFP.Modules;
 using IFP.Modules.PiguIntegration;
 using IFP.Modules.PiguIntegration.Models;
+using IFP.Singletons;
 using IFP.UI;
 using IFP.Utils;
 using Microsoft.VisualStudio.PlatformUI;
@@ -21,13 +22,10 @@ namespace IFP.Pages
     /// </summary>
     public partial class PiguIntegrationPage : Page
     {
-        public Dictionary<string, FullProduct> AllProducts;
-        private readonly Dictionary<string, string> CategoryKVP;
-
-        //for saving selected current product type
+        // For saving selected current product type
         private Tuple<int?, string> currentProductType = new(null, null);
 
-        //for selectin all items in our product listbox
+        // For selecting all items in our product listbox
         private bool ourListBoxAllItemsSelected = false;
 
         private Dictionary<string, PiguVariantOffer> SelectedProductVariantOffersKVP = new();
@@ -35,7 +33,7 @@ namespace IFP.Pages
         private List<PiguProductOffer> OurProductsLBSource = new();
         private List<PiguProductOffer> PiguProductOfferLBSource = new();
 
-        //used to determine if any productOffers have Variant Offers enabled
+        // Used to determine if any productOffers have Variant Offers enabled
         private bool AnyOffersPlaced
         {
             get { return _AnyOffersPlaced; }
@@ -47,7 +45,7 @@ namespace IFP.Pages
         }
         private bool _AnyOffersPlaced;
 
-        //is used to track that product is selected
+        // Used to track that product is selected
         private string SelectedProductSKU
         {
             get { return _SelectedProductSKU; }
@@ -65,18 +63,14 @@ namespace IFP.Pages
         }
         private string _SelectedProductSKU;
 
-        //a command thats passed to PiguLB item to delete it from piguLB
+        // Command thats passed to PiguLB item to delete it from piguLB
         public ICommand DeletePiguItemCommand { get; set; }
 
-        //constructor
-        public PiguIntegrationPage(Dictionary<string, FullProduct> products, Dictionary<string, string> categoryKVP)
+        // Constructor
+        public PiguIntegrationPage()
         {
             InitializeComponent();
-            AllProducts = products;
             OurProductsLB.ItemsSource = OurProductsLBSource;
-
-            //assigning category kvp
-            CategoryKVP = categoryKVP;
 
             //init piguLB item delete command
             DeletePiguItemCommand = new DelegateCommand<object>(DeletePiguItem);
@@ -88,9 +82,7 @@ namespace IFP.Pages
         }
 
 
-        //
         // Loading pigu product offers from database and updating last xml generated timestamp
-        //
 
         /// <summary>
         /// method taht loads pigu product offers from database
@@ -174,9 +166,7 @@ namespace IFP.Pages
         }
 
 
-        //
         // Buttons Section
-        //
 
         /// <summary>
         /// back button goes back to productBrowsePage
@@ -185,7 +175,7 @@ namespace IFP.Pages
         /// <param name="e"></param>
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            ProductBrowsePage.Instance.AllProducts = AllProducts;
+            ProductBrowsePage.Instance.RefreshDataGrid();
             MainWindow.Instance.setFrame(ProductBrowsePage.Instance);
         }
 
@@ -206,7 +196,7 @@ namespace IFP.Pages
             List<(PiguProductOffer, FullProduct)> passList = new List<(PiguProductOffer, FullProduct)>();
             foreach (var pOffer in PiguProductOfferLBSource)
             {
-                passList.Add((pOffer, AllProducts[pOffer.SKU]));
+                passList.Add((pOffer, ProductStore.Instance.ProductKVP[pOffer.SKU]));
             }
 
             //Building Xml in the back ground in background
@@ -248,13 +238,11 @@ namespace IFP.Pages
         /// <param name="e"></param>
         private void EditProductButton_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.Instance.setFrame(new ProductInfoPage(AllProducts[SelectedProductSKU], this));
+            MainWindow.Instance.setFrame(new ProductInfoPage(ProductStore.Instance.ProductKVP[SelectedProductSKU], this));
         }
 
 
-        //
         // Filtering our list box section
-        //
 
         /// <summary>
         /// method that updates currently selected product type state
@@ -296,7 +284,7 @@ namespace IFP.Pages
 
             //populating our product list box if current product type is null
             string currentTypeID = currentProductType.Item1.ToString();
-            var pList = AllProducts.Where(p => p.Value.ProductTypeID == currentTypeID);
+            var pList = ProductStore.Instance.ProductKVP.Where(p => p.Value.ProductTypeID == currentTypeID);
             foreach ((var key, var val) in pList)
             {
                 PiguProductOffer item = new();
@@ -312,9 +300,8 @@ namespace IFP.Pages
             OurProductsLB.Items.Refresh();
         }
 
-        //
+
         // Listboxes item transfer, selection section
-        //
 
         /// <summary>
         /// Transfers items from our product listbox to pigu
@@ -404,9 +391,7 @@ namespace IFP.Pages
         }
 
 
-        //
         // ListBoxes Selection Changed
-        //
 
         /// <summary>
         /// changes Selected SKU and offer info
@@ -446,7 +431,7 @@ namespace IFP.Pages
         /// <param name="sku"></param>
         private void UpdateSelectedProductUI(string sku)
         {
-            var selectedProduct = AllProducts[sku];
+            var selectedProduct = ProductStore.Instance.ProductKVP[sku];
 
             //checking if generate xml button should be enabled
             //checking if there are any offers placed
@@ -536,9 +521,7 @@ namespace IFP.Pages
         }
 
 
-        //
         // Variants (PiguSellOffers) section
-        //
 
         /// <summary>
         /// changes displayed info when Variant supplier code combobox selection changes
@@ -554,7 +537,7 @@ namespace IFP.Pages
             {
                 var item = (KeyValuePair<string, PiguVariantOffer>)comboBox.SelectedItem;
                 var piguVariantOffer = item.Value;
-                var product = AllProducts[piguVariantOffer.SKU];
+                var product = ProductStore.Instance.ProductKVP[piguVariantOffer.SKU];
                 var pVariant = product.ProductVariants.Where(x => x.Barcode == piguVariantOffer.Barcode).FirstOrDefault();
 
                 TitleLTLabel.Text = product.TitleLT;
@@ -589,7 +572,6 @@ namespace IFP.Pages
                 }
             }
         }
-
 
         /// <summary>
         /// button that saves and enables pigu
@@ -663,7 +645,7 @@ namespace IFP.Pages
             offer.PriceBDiscount = currentOfferPriceBDiscount;
 
             //change stock and price in application memory
-            var updateVariant = AllProducts[offer.SKU].ProductVariants.Where(v => v.Barcode == offer.Barcode).FirstOrDefault();
+            var updateVariant = ProductStore.Instance.ProductKVP[offer.SKU].ProductVariants.Where(v => v.Barcode == offer.Barcode).FirstOrDefault();
             if (updateVariant != null)
             {
                 updateVariant.OurStock = int.Parse(currentOfferStock);
@@ -674,9 +656,7 @@ namespace IFP.Pages
         }
 
 
-        //
         // int and double preview text input section
-        //
 
         /// <summary>
         /// allows only double to be entered (numbers and .)

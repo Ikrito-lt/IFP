@@ -1,22 +1,15 @@
 ﻿using IFP.Models;
 using IFP.Modules;
+using IFP.Singletons;
 using IFP.UI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace IFP.Pages
 {
@@ -25,10 +18,6 @@ namespace IFP.Pages
     /// </summary>
     public partial class ProductBrowsePage : Page
     {
-
-        public Dictionary<string, FullProduct> AllProducts;
-        private readonly Dictionary<string, string> CategoryKVP = ProductCategoryModule.Instance.CategoryKVP;
-
         //for saving product status fiter state
         List<CheckBoxListItem> StatusList;
         //for saving product type filter state
@@ -61,9 +50,7 @@ namespace IFP.Pages
         }
 
 
-        //
         // data grid manitulation section 
-        //
 
         /// <summary>
         /// method for  loading products to datagrid
@@ -76,26 +63,18 @@ namespace IFP.Pages
             worker.DoWork += (sender, e) =>
             {
                 //downloading products from database
-                Dictionary<string, FullProduct> products = ProductModule.GetAllProducts();
-                e.Result = products;
+                ProductStore.Instance.GetProductKVP();
+                e.Result = true;
             };
 
             // background Worker for loading all product on complete
             worker.RunWorkerCompleted += (sender, e) =>
             {
-                //getting category display names
-                var TempProductList = e.Result as Dictionary<string, FullProduct>;
-                foreach ((string sku, FullProduct TempProduct) in TempProductList)
-                {
-                    TempProduct.ProductTypeDisplayVal = CategoryKVP[TempProduct.ProductTypeID];
-                }
-
-                //loading category tree
-                CategoryTreeModule categoryTreeModule = CategoryTreeModule.Instance;
-
                 //putting products in their grids
-                AllProducts = TempProductList;
-                DataGridSource = AllProducts.Values.ToList();
+                DataGridSource = ProductStore.Instance.ProductKVP.Values.ToList();
+
+                //init category tree singleton
+                CategoryTreeModule categoryTreeModule = CategoryTreeModule.Instance;
 
                 //init DataGrid
                 productDG.ItemsSource = DataGridSource;
@@ -132,7 +111,7 @@ namespace IFP.Pages
         public void RefreshDataGrid()
         {
             //putting products in their grids
-            DataGridSource = AllProducts.Values.ToList();
+            DataGridSource = ProductStore.Instance.ProductKVP.Values.ToList();
 
             //unmarking status checkboxes and date selectors 
             StatusList.ForEach(x => x.IsSelected = true);
@@ -176,9 +155,7 @@ namespace IFP.Pages
         }
 
 
-        //
         // change pages section
-        //
 
         /// <summary>
         /// goes back to main page
@@ -209,7 +186,7 @@ namespace IFP.Pages
         /// <param name="e"></param>
         private void BulkCategoryEditButton_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.Instance.mainFrame.Content = new ProductBulkEditPage(AllProducts, this);
+            MainWindow.Instance.mainFrame.Content = new ProductBulkEditPage();
         }
 
         /// <summary>
@@ -219,13 +196,11 @@ namespace IFP.Pages
         /// <param name="e"></param>
         private void OpenPiguIntegrationPage(object sender, RoutedEventArgs e)
         {
-            MainWindow.Instance.setFrame(new PiguIntegrationPage(AllProducts, CategoryKVP));
+            MainWindow.Instance.setFrame(new PiguIntegrationPage());
         }
 
 
-        //
         // Product filtering logic 
-        //
 
         /// <summary>
         /// method that applies status, type, date added filters to product data grid
@@ -239,7 +214,7 @@ namespace IFP.Pages
             {
                 if (status.IsSelected)
                 {
-                    tempList.AddRange(AllProducts.ToList().FindAll(x => x.Value.Status == status.Name).ToDictionary(x => x.Key, x => x.Value).Values.ToList());
+                    tempList.AddRange(ProductStore.Instance.ProductKVP.ToList().FindAll(x => x.Value.Status == status.Name).ToDictionary(x => x.Key, x => x.Value).Values.ToList());
                 }
             }
 
@@ -335,9 +310,7 @@ namespace IFP.Pages
         }
 
 
-        //
         //Type filtering section (category tree)
-        //
 
         /// <summary>
         /// button should open popup with category tree
@@ -363,9 +336,7 @@ namespace IFP.Pages
         }
 
 
-        //
         //status filtering section
-        //
 
         /// <summary>
         /// init status list box
@@ -400,9 +371,7 @@ namespace IFP.Pages
         }
 
 
-        //
         //Date filtering section
-        //
 
         /// <summary>
         /// init status list box
@@ -430,9 +399,7 @@ namespace IFP.Pages
         }
 
 
-        //
         // Text Filtering section
-        //
 
         /// <summary>
         /// method for updating vendor filter query

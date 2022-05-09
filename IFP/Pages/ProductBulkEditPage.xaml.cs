@@ -1,21 +1,13 @@
 ﻿using IFP.Models;
-using IFP.Modules;
+using IFP.Singletons;
 using IFP.UI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace IFP.Pages
 {
@@ -24,27 +16,19 @@ namespace IFP.Pages
     /// </summary>
     public partial class ProductBulkEditPage : Page
     {
-        //todo: i kinda dont need it
-        private readonly Page PreviousPage;
-
-        private readonly Dictionary<string, FullProduct> Products;
-
         private List<string> PossibleVendorTypes;
         //for saving selected current product type
         Tuple<int?, string> currentProductType = new(null, null);
         //for saving selected new product type
         Tuple<int?, string> newProductType = new(null, null);
 
-
         private List<TypeListBoxItem> ListBoxSource;
         private bool AllTypeChangeProductsSelected = false;
 
 
-        public ProductBulkEditPage(Dictionary<string, FullProduct> products, Page prevPage)
+        public ProductBulkEditPage()
         {
             InitializeComponent();
-            PreviousPage = prevPage;
-            Products = products;
 
             //sorting possible vendor product types
             PossibleVendorTypes = GetVendorTypes();
@@ -68,9 +52,7 @@ namespace IFP.Pages
             public bool Selected { get; set; }
         }
 
-        //
         // Init section
-        // 
 
         /// <summary>
         /// this method initialises possible vendor product types combobox
@@ -88,7 +70,7 @@ namespace IFP.Pages
         private List<string> GetVendorTypes()
         {
             List<string> possibleVendorTypes = new();
-            foreach ((_, FullProduct p) in Products)
+            foreach ((_, FullProduct p) in ProductStore.Instance.ProductKVP)
             {
                 if (!possibleVendorTypes.Contains(p.ProductTypeVendor.Trim()))
                 {
@@ -99,9 +81,7 @@ namespace IFP.Pages
         }
 
 
-        //
         // selecting new and current product types
-        //
 
         /// <summary>
         /// method that saves state of current product type for list box filtration
@@ -148,9 +128,7 @@ namespace IFP.Pages
         }
 
 
-        //
         // refreshing product list box section
-        //
 
         /// <summary>
         /// method that is responsible for loading products in product list box
@@ -180,7 +158,7 @@ namespace IFP.Pages
             }
 
             //compiling new ListBoxSource with selected product types
-            foreach ((_, FullProduct p) in Products)
+            foreach ((_, FullProduct p) in ProductStore.Instance.ProductKVP)
             {
                 var TPlistboxitem = new TypeListBoxItem();
 
@@ -210,9 +188,7 @@ namespace IFP.Pages
         }
 
 
-        //
         // Buttons section
-        //
 
         /// <summary>
         /// Button to go back
@@ -221,9 +197,8 @@ namespace IFP.Pages
         /// <param name="e"></param>
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            ProductBrowsePage.Instance.AllProducts = Products;
             ProductBrowsePage.Instance.RefreshDataGrid();
-            MainWindow.Instance.mainFrame.Content = ProductBrowsePage.Instance;
+            MainWindow.Instance.setFrame(ProductBrowsePage.Instance);
         }
 
         /// <summary>
@@ -265,9 +240,7 @@ namespace IFP.Pages
         }
 
 
-        //
         // List box item interaction section
-        //
 
         /// <summary>
         /// Refreshes Product attributes section
@@ -282,7 +255,7 @@ namespace IFP.Pages
             {
                 //loading attributtes
                 string selectedSKU = selectedItem.SKU;
-                FullProduct selectedProduct = Products[selectedSKU];
+                FullProduct selectedProduct = ProductStore.Instance.ProductKVP[selectedSKU];
 
                 var productAttributesArray = from row in selectedProduct.ProductAttributtes select new { AttributeName = row.Key, AttributeValue = row.Value };
                 productAttributesDG.ItemsSource = productAttributesArray.ToArray();
@@ -319,9 +292,7 @@ namespace IFP.Pages
         }
 
 
-        //
         // change products types logic section
-        //
 
         /// <summary>
         /// /button that changes types 
@@ -354,11 +325,11 @@ namespace IFP.Pages
                 var changesCount = changeList.Count;
                 foreach ((var sku, var t) in changeList)
                 {
-                    ProductCategoryModule.ChangeProductCategory(sku, newTypeID);
+                    ProductCategoryStore.ChangeProductCategory(sku, newTypeID);
 
                     //changing category in products
-                    Products[sku].ProductTypeID = newTypeID;
-                    Products[sku].ProductTypeDisplayVal = newTypeName;
+                    ProductStore.Instance.ProductKVP[sku].ProductTypeID = newTypeID;
+                    ProductStore.Instance.ProductKVP[sku].ProductTypeDisplayVal = newTypeName;
 
                     //changing category in listbox
                     ListBoxSource.Remove(t);

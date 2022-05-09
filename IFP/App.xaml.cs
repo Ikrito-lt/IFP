@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using IFP.Pages;
+using System.Windows;
 using System.Windows.Threading;
 
 namespace IFP
@@ -16,6 +17,7 @@ namespace IFP
         void App_Startup(object sender, StartupEventArgs e)
         {
             IFP.MainWindow.Instance.Show();
+            var _ = ProductBrowsePage.Instance;
         }
 
         private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
