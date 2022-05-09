@@ -52,7 +52,7 @@ namespace IFP.Pages
         /// <param name="e"></param>
         private async void SettingsPage_Loaded(object sender, RoutedEventArgs e)
         {
-            uManager = await UpdateManager.GitHubUpdateManager(@"https://github.com/Ikrito-lt/Fulfillment_Platform");
+            uManager = await UpdateManager.GitHubUpdateManager(@"https://github.com/Ikrito-lt/IFP");
             CurrentVersionTextBox.Text = uManager.CurrentlyInstalledVersion().ToString();
         }
 
