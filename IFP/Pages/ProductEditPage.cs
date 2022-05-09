@@ -1,4 +1,6 @@
 ﻿using IFP.Models;
+using Microsoft.VisualStudio.PlatformUI;
+using System.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,67 +13,105 @@ namespace IFP.Pages
     internal class ProductEditPage : ProductInfoPage
     {
         private bool ProductChanged = false;
-        private readonly Dictionary<string, string> CategoryKVP;
 
+        // Constructor
         public ProductEditPage(FullProduct product, Page prevPage) : base(product, prevPage) {
             MainWindow.Instance.SetWindowTitle($"Product Edit Page ({product.SKU})");
+            MakePageEditable();
         }
 
-        ///// <summary>
-        ///// method that makes page readonly todo:redo this
-        ///// </summary>
-        //private void MakePageReadonly()
-        //{
-        //    DescBoxLT.IsReadOnly = true;
-        //    DescBoxLV.IsReadOnly = true;
-        //    DescBoxEE.IsReadOnly = true;
-        //    DescBoxRU.IsReadOnly = true;
 
-        //    TitleBoxLT.IsReadOnly = true;
-        //    TitleBoxLV.IsReadOnly = true;
-        //    TitleBoxEE.IsReadOnly = true;
-        //    TitleBoxRU.IsReadOnly = true;
+        // Init Section
 
-        //    VendorBox.IsReadOnly = true;
-        //    PriceBox.IsReadOnly = true;
-        //    VendorPriceBox.IsReadOnly = true;
-        //    WeightBox.IsReadOnly = true;
-        //    LenghtBox.IsReadOnly = true;
-        //    HeightBox.IsReadOnly = true;
-        //    WidthBox.IsReadOnly = true;
-        //    ImageBox.IsReadOnly = true;
-        //    TagBox.IsReadOnly = true;
+        /// <summary>
+        /// method that makes page readonly todo:redo this
+        /// </summary>
+        private void MakePageEditable()
+        {
+            // Main section
+            DescBoxLT.IsReadOnly = false;
+            DescBoxLV.IsReadOnly = false;
+            DescBoxEE.IsReadOnly = false;
+            DescBoxRU.IsReadOnly = false;
 
-        //    AddImageButton.IsEnabled = false;
-        //    AddTagButton.IsEnabled = false;
+            TitleBoxLT.IsReadOnly = false;
+            TitleBoxLV.IsReadOnly = false;
+            TitleBoxEE.IsReadOnly = false;
+            TitleBoxRU.IsReadOnly = false;
 
-        //    //ProductTypeComboBox.IsEnabled = false;
+            VendorBox.IsReadOnly = false;
+            SelectCategoryButton.IsEnabled = true;
 
-        //    TagListBox.IsEnabled = false;
-        //    ImageListBox.IsEnabled = false;
+            WeightBox.IsReadOnly = false;
+            LenghtBox.IsReadOnly = false;
+            HeightBox.IsReadOnly = false;
+            WidthBox.IsReadOnly = false;
+            ImageBox.IsReadOnly = false;
+            TagBox.IsReadOnly = false;
 
-        //    //status
-        //    ProductStatusComboBox.IsEnabled = false;
+            AddImageButton.IsEnabled = true;
+            AddTagButton.IsEnabled = true;
 
-        //    //variants
-        //    if (!ProductVariantComboBox.Items.IsEmpty)
-        //    {
-        //        ProductVariantComboBox.SelectedIndex = 0;
-        //    }
-        //    ProductVariantComboBox.IsEnabled = false;
-        //    VariantTypeBox.IsEnabled = false;
-        //    VariantDataBox.IsEnabled = false;
-        //    VendorStockBox.IsEnabled = false;
-        //    OurStockBox.IsEnabled = false;
-        //    PriceBox.IsEnabled = false;
-        //    VendorPriceBox.IsEnabled = false;
-        //    PermPriceCheckBox.IsEnabled = false;
-        //    SaveVariantButton.IsEnabled = false;
+            //assign commands
+            DeleteImageCommand = new DelegateCommand<object>(DeleteImage);
+            DeleteTagCommand = new DelegateCommand<object>(DeleteTag);
 
-        //    //changing buttons
-        //    //SaveButton.Visibility = Visibility.Hidden;
-        //    //EditButton.Visibility = Visibility.Visible;
-        //}
+            // Attribute data grid
+            productAttributesDG.IsReadOnly = false;
+
+            // Status
+            ProductStatusComboBox.IsEnabled = true;
+
+            // Variant section
+            VariantTypeBox.IsReadOnly = false;
+            VariantDataBox.IsReadOnly = false;
+
+            OurStockBox.IsReadOnly = false;
+            PriceBox.IsReadOnly = false;
+
+            PermPriceCheckBox.IsEnabled = true;
+            SaveVariantButton.IsEnabled = true;
+
+            // Selecting first variant
+            if (!ProductVariantComboBox.Items.IsEmpty)
+            {
+                ProductVariantComboBox.SelectedIndex = 0;
+            }
+
+            // Changing edit button to save
+            SaveProductButton.Visibility = Visibility.Visible;
+            EditProductButton.Visibility = Visibility.Hidden;
+        }
+
+
+        // Methods that get passed to buttons in tag and image listboxes
+
+        /// <summary>
+        /// method deletes image link from list box (passed as a command to the button)
+        /// </summary>
+        /// <param name="item"></param>
+        private void DeleteImage(object item)
+        {
+            ImgListBoxDataSource.Remove(item as string);
+            EditableProduct.Images.Remove(item as string);
+
+            //setting product changed flag to true
+            ProductChanged = true;
+        }
+
+        /// <summary>
+        /// method deletes image link from list box (passed as a command to the button)
+        /// </summary>
+        /// <param name="item"></param>
+        private void DeleteTag(object item)
+        {
+            TagListBoxDataSource.Remove(item as string);
+            EditableProduct.Tags.Remove(item as string);
+
+            //setting product changed flag to true
+            ProductChanged = true;
+        }
+
 
         ///// <summary>
         ///// initialiazes UI with editable product data
@@ -435,18 +475,6 @@ namespace IFP.Pages
         //    ProductChanged = true;
         //}
 
-        ///// <summary>
-        ///// method deletes image link from list box (passed as a command to the button)
-        ///// </summary>
-        ///// <param name="item"></param>
-        //private void DeleteTag(object item)
-        //{
-        //    TagListBoxDataSource.Remove(item as string);
-        //    EditableProduct.Tags.Remove(item as string);
-
-        //    //setting product changed flag to true
-        //    ProductChanged = true;
-        //}
 
         ///// <summary>
         ///// on button click method that adds linkt to product.images
@@ -464,28 +492,6 @@ namespace IFP.Pages
         //    ProductChanged = true;
         //}
 
-        ///// <summary>
-        ///// method deletes image link from list box (passed as a command to the button)
-        ///// </summary>
-        ///// <param name="item"></param>
-        //private void DeleteImage(object item)
-        //{
-        //    ImgListBoxDataSource.Remove(item as string);
-        //    EditableProduct.Images.Remove(item as string);
-
-        //    //setting product changed flag to true
-        //    ProductChanged = true;
-        //}
-
-        ///// <summary>
-        ///// method opens image in default browser (passed as a command to the button)
-        ///// </summary>
-        ///// <param name="item"></param>
-        //private void ShowImage(object item)
-        //{
-        //    string imgLink = item as string;
-        //    SiteNav.GoToSite(imgLink);
-        //}
 
 
         ////
@@ -540,16 +546,6 @@ namespace IFP.Pages
         //private void SaveFlipComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         //{
         //    ProductChanged = true;
-        //}
-
-        //private void SelectCategoryButton_Click(object sender, RoutedEventArgs e)
-        //{
-
-        //}
-
-        //private void DeleteProductButton_Click(object sender, RoutedEventArgs e)
-        //{
-
         //}
     }
 }

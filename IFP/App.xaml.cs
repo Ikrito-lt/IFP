@@ -17,6 +17,8 @@ namespace IFP
         void App_Startup(object sender, StartupEventArgs e)
         {
             IFP.MainWindow.Instance.Show();
+
+            // starting loading products from database
             var _ = ProductBrowsePage.Instance;
         }
 

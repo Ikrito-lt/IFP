@@ -19,24 +19,24 @@ namespace IFP.Pages
     /// </summary>
     public partial class ProductInfoPage : Page
     {
-        private readonly FullProduct EditableProduct;
-        private readonly Page PreviousPage;
-        Tuple<int?, string> ProductType = new(null, null);
+        protected readonly FullProduct EditableProduct;
+        protected readonly Page PreviousPage;
+        protected Tuple<int?, string> ProductType = new(null, null);
 
         //for storing product variants and statuses
-        private Dictionary<string, ProductVariant> EditableVariantsKVP = new();
-        private List<string> ProductStatuses = ProductStatus.GetFields();
+        protected Dictionary<string, ProductVariant> EditableVariantsKVP = new();
+        protected List<string> ProductStatuses = ProductStatus.GetFields();
 
 
         //for handling adding images to the product
-        private ObservableCollection<string> ImgListBoxDataSource;
-        public ICommand DeleteImageCommand { get; set; }
-        public ICommand ShowImageCommand { get; set; }
-        
+        protected ObservableCollection<string> ImgListBoxDataSource;
+        protected ICommand DeleteImageCommand { get; set; }
+        protected ICommand ShowImageCommand { get; set; }
+
 
         //for handling adding tags to the products
-        private ObservableCollection<string> TagListBoxDataSource;
-        public ICommand DeleteTagCommand { get; set; }
+        protected ObservableCollection<string> TagListBoxDataSource;
+        protected ICommand DeleteTagCommand { get; set; }
 
 
         //Constructor
@@ -218,6 +218,9 @@ namespace IFP.Pages
         /// Method that navigates to previous page
         /// </summary>
         private void NavigateToPreviousPage() {
+
+            MainWindow.Instance.SetWindowTitle();
+            ProductBrowsePage.Instance.RefreshDataGrid();
             MainWindow.Instance.mainFrame.Content = PreviousPage;
         }
 

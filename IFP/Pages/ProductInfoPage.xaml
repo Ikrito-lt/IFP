@@ -190,7 +190,7 @@
                                             <ColumnDefinition Width="*"></ColumnDefinition>
                                         </Grid.ColumnDefinitions>
 
-                                        <Button x:Name="DeleteImage" IsEnabled="false" Content="[x]" Command="{Binding ElementName=ImageListBox, Path=DataContext.DeleteImageCommand}"
+                                        <Button Content="[x]" Command="{Binding ElementName=ImageListBox, Path=DataContext.DeleteImageCommand}"
                                         CommandParameter="{Binding}" Grid.Column="0" Margin="5" Padding="3" VerticalContentAlignment="Center"/>
                                         <Button Content="🔎︎" Command="{Binding ElementName=ImageListBox, Path=DataContext.ShowImageCommand}"
                                         CommandParameter="{Binding}" Grid.Column="1" Margin="5" Padding="3" VerticalContentAlignment="Center"/>
@@ -249,14 +249,14 @@
                         </TextBox.Style>
                     </TextBox>
 
-                    <DataGrid x:Name="productAttributesDG" Grid.Row="1" Margin="0" SelectionMode="Single" CanUserAddRows="False" HeadersVisibility="Column"
+                    <DataGrid x:Name="productAttributesDG" Grid.Row="1" Margin="0" SelectionMode="Single" CanUserAddRows="True" HeadersVisibility="Column"
                           VerticalAlignment="Stretch" AutoGenerateColumns="False" IsReadOnly="True">
                         <DataGrid.Columns>
 
                             <DataGridTextColumn Binding="{Binding AttributeName}" Header="Attribute Name" Width="*">
                                 <DataGridTextColumn.ElementStyle>
                                     <Style TargetType="TextBlock">
-                                        <Setter Property="HorizontalAlignment" Value="Left" />
+                                        <Setter Property="HorizontalAlignment" Value="Left"/>
                                         <Setter Property="VerticalAlignment" Value="Center"/>
                                         <Setter Property="TextWrapping" Value="Wrap" />
                                         <Setter Property="TextAlignment" Value="Left"/>
@@ -380,7 +380,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="VendorStock: " Margin="5" Padding="3"/>
-                        <TextBox Grid.Column="1" x:Name="VendorStockBox" IsReadOnly="True" VerticalAlignment="Center" Padding="3" PreviewTextInput="IntPreviewTextInput"/>
+                        <TextBox Grid.Column="1" x:Name="VendorStockBox" IsEnabled="False" VerticalAlignment="Center" Padding="3" PreviewTextInput="IntPreviewTextInput"/>
                     </Grid>
 
                     <Grid Margin="0" Grid.Row="5">
@@ -408,7 +408,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="Vendor Price (€): " Margin="5" Padding="3"/>
-                        <TextBox Grid.Column="1" x:Name="VendorPriceBox" IsReadOnly="True" VerticalAlignment="Center" Padding="3" PreviewTextInput="DoublePreviewTextInput"/>
+                        <TextBox Grid.Column="1" x:Name="VendorPriceBox" IsEnabled="False" VerticalAlignment="Center" Padding="3" PreviewTextInput="DoublePreviewTextInput"/>
                     </Grid>
 
                     <Grid Margin="0" Grid.Row="8">
