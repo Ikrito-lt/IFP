@@ -247,7 +247,7 @@ namespace IFP.Pages
             {
                 ProductChangeRecord productChange = listboxItem.Content as ProductChangeRecord;
                 FullProduct editProduct = ProductModule.GetProduct(productChange.SKU);
-                MainWindow.Instance.mainFrame.Content = new ProductEditPage(editProduct, this, ProductCategoryModule.Instance.CategoryKVP);
+                MainWindow.Instance.mainFrame.Content = new ProductInfoPage(editProduct, this);
             }
         }
 

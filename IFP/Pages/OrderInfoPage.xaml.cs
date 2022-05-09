@@ -59,7 +59,7 @@ namespace IFP.Pages
             {
                 OrderProduct orderProduct = listboxItem.Content as OrderProduct;
                 FullProduct viewProduct = ProductModule.GetProduct(orderProduct.sku);
-                MainWindow.Instance.mainFrame.Content = new ProductEditPage(viewProduct, this, ProductCategoryModule.Instance.CategoryKVP, true);
+                MainWindow.Instance.mainFrame.Content = new ProductInfoPage(viewProduct, this);
             }
         }
 

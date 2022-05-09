@@ -248,7 +248,7 @@ namespace IFP.Pages
         /// <param name="e"></param>
         private void EditProductButton_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.Instance.setFrame(new ProductEditPage(AllProducts[SelectedProductSKU], this, CategoryKVP, true));
+            MainWindow.Instance.setFrame(new ProductInfoPage(AllProducts[SelectedProductSKU], this));
         }
 
 

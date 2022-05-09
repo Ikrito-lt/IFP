@@ -1,13 +1,12 @@
-﻿<Page x:Class="IFP.Pages.ProductEditPage"
+﻿<Page x:Class="IFP.Pages.ProductInfoPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:emoji="clr-namespace:Emoji.Wpf;assembly=Emoji.Wpf"
-      xmlns:local="clr-namespace:IFP.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="1080" d:DesignWidth="1920"
-      Title="ProductEditPage">
+      Title="ProductInfoPage">
 
     <Grid Margin="0" Background="WhiteSmoke">
         <Grid.RowDefinitions>
@@ -40,29 +39,27 @@
                             <TabItem.Header>
                                 <TextBlock Text="LT" Foreground="Blue" FontSize="10"/>
                             </TabItem.Header>
-                            <TextBox x:Name="TitleBoxLT" Visibility="Visible" VerticalAlignment="Center" Padding="3" MaxLength="255"/>
+                            <TextBox x:Name="TitleBoxLT" IsReadOnly="true" VerticalAlignment="Center" Padding="3" MaxLength="255"/>
                         </TabItem>
                         <TabItem>
                             <TabItem.Header>
                                 <TextBlock Text="LV" Foreground="Blue" FontSize="10"/>
                             </TabItem.Header>
-                            <TextBox x:Name="TitleBoxLV" Visibility="Visible" VerticalAlignment="Center" Padding="3" MaxLength="255"/>
+                            <TextBox x:Name="TitleBoxLV" IsReadOnly="true" VerticalAlignment="Center" Padding="3" MaxLength="255"/>
                         </TabItem>
                         <TabItem>
                             <TabItem.Header>
                                 <TextBlock Text="EE" Foreground="Blue" FontSize="10"/>
                             </TabItem.Header>
-                            <TextBox x:Name="TitleBoxEE" Visibility="Visible" VerticalAlignment="Center" Padding="3" MaxLength="255"/>
+                            <TextBox x:Name="TitleBoxEE" IsReadOnly="true" VerticalAlignment="Center" Padding="3" MaxLength="255"/>
                         </TabItem>
                         <TabItem>
                             <TabItem.Header>
                                 <TextBlock Text="RU" Foreground="Blue" FontSize="10"/>
                             </TabItem.Header>
-                            <TextBox x:Name="TitleBoxRU" Visibility="Visible" VerticalAlignment="Center" Padding="3" MaxLength="255"/>
+                            <TextBox x:Name="TitleBoxRU" IsReadOnly="true" VerticalAlignment="Center" Padding="3" MaxLength="255"/>
                         </TabItem>
                     </TabControl>
-
-                    <!--<TextBox Grid.Column="1" x:Name="TitleBox" Visibility="Visible" VerticalAlignment="Center" Padding="3" MaxLength="255"/>-->
                 </Grid>
 
                 <Grid Margin="0" Grid.Row="1">
@@ -77,40 +74,37 @@
                             <TabItem.Header>
                                 <TextBlock Text="LT" Foreground="Blue" FontSize="10"/>
                             </TabItem.Header>
-                            <TextBox Grid.Column="1" x:Name="DescBoxLT" Visibility="Visible" Margin="0,5,0,5" VerticalAlignment="Stretch"  Padding="3" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
+                            <TextBox Grid.Column="1" x:Name="DescBoxLT" IsReadOnly="true" Margin="0,5,0,5" VerticalAlignment="Stretch"  Padding="3" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
                         </TabItem>
                         <TabItem>
                             <TabItem.Header>
                                 <TextBlock Text="LV" Foreground="Blue" FontSize="10"/>
                             </TabItem.Header>
-                            <TextBox Grid.Column="1" x:Name="DescBoxLV" Visibility="Visible" Margin="0,5,0,5" VerticalAlignment="Stretch"  Padding="3" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
+                            <TextBox Grid.Column="1" x:Name="DescBoxLV" IsReadOnly="true" Margin="0,5,0,5" VerticalAlignment="Stretch"  Padding="3" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
                         </TabItem>
                         <TabItem>
                             <TabItem.Header>
                                 <TextBlock Text="EE" Foreground="Blue" FontSize="10"/>
                             </TabItem.Header>
-                            <TextBox Grid.Column="1" x:Name="DescBoxEE" Visibility="Visible" Margin="0,5,0,5" VerticalAlignment="Stretch"  Padding="3" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
+                            <TextBox Grid.Column="1" x:Name="DescBoxEE" IsReadOnly="true" Margin="0,5,0,5" VerticalAlignment="Stretch"  Padding="3" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
                         </TabItem>
                         <TabItem>
                             <TabItem.Header>
                                 <TextBlock Text="RU" Foreground="Blue" FontSize="10"/>
                             </TabItem.Header>
-                            <TextBox Grid.Column="1" x:Name="DescBoxRU" Visibility="Visible" Margin="0,5,0,5" VerticalAlignment="Stretch"  Padding="3" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
+                            <TextBox Grid.Column="1" x:Name="DescBoxRU" IsReadOnly="true" Margin="0,5,0,5" VerticalAlignment="Stretch"  Padding="3" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
                         </TabItem>
                     </TabControl>
-
-                    <!--<TextBox Grid.Column="1" x:Name="DescBox" Visibility="Visible" Margin="0,5,0,5" VerticalAlignment="Stretch"  Padding="3" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>-->
                 </Grid>
 
                 <StackPanel Orientation="Vertical" Grid.Row="2">
-
                     <Grid Margin="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="Vendor: " Margin="5" Padding="3" FontWeight="Bold"/>
-                        <TextBox Grid.Column="1" x:Name="VendorBox" Visibility="Visible" VerticalAlignment="Center" Padding="3"/>
+                        <TextBox Grid.Column="1" x:Name="VendorBox" IsReadOnly="true" VerticalAlignment="Center" Padding="3"/>
                     </Grid>
 
                     <Grid Margin="0">
@@ -135,7 +129,8 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="Product Type: " Margin="5" Padding="3" FontWeight="Bold"/>
-                        <ComboBox Grid.Column="1" x:Name="ProductTypeComboBox" Margin="0,4,0,4" ItemsSource="{Binding}" SelectedValuePath="Key" DisplayMemberPath="Value"/>
+                        <Button Grid.Column="1" IsEnabled="False" x:Name="SelectCategoryButton" Click="SelectCategoryButton_Click" Content="Select Category" Padding="5" HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center"/>
 
                         <TextBlock Grid.Column="2" Text="Vendor Type: " Margin="5" Padding="3" FontWeight="Bold"/>
                         <Label Grid.Column="3" x:Name="VendorProductTypeLabel" Content="" VerticalAlignment="Center" Padding="3"/>
@@ -149,9 +144,9 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="Weight (kg): " Margin="5" Padding="3" FontWeight="Bold"/>
-                        <TextBox Grid.Column="1" x:Name="WeightBox" Visibility="Visible" VerticalAlignment="Center" Padding="3" PreviewTextInput="DoublePreviewTextInput"/>
+                        <TextBox Grid.Column="1" x:Name="WeightBox" IsReadOnly="true" VerticalAlignment="Center" Padding="3" PreviewTextInput="DoublePreviewTextInput"/>
                         <TextBlock Grid.Column="2" Text="Height (mm): " Margin="5" Padding="3" FontWeight="Bold"/>
-                        <TextBox Grid.Column="3" x:Name="HeightBox" Visibility="Visible" VerticalAlignment="Center" Padding="3" PreviewTextInput="IntPreviewTextInput"/>
+                        <TextBox Grid.Column="3" x:Name="HeightBox" IsReadOnly="true" VerticalAlignment="Center" Padding="3" PreviewTextInput="IntPreviewTextInput"/>
                     </Grid>
 
                     <Grid Margin="0">
@@ -162,10 +157,10 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="Lenght (mm): " Margin="5" Padding="3" FontWeight="Bold"/>
-                        <TextBox Grid.Column="1" x:Name="LenghtBox" Visibility="Visible" VerticalAlignment="Center" Padding="3" PreviewTextInput="IntPreviewTextInput"/>
+                        <TextBox Grid.Column="1" x:Name="LenghtBox" IsReadOnly="true" VerticalAlignment="Center" Padding="3" PreviewTextInput="IntPreviewTextInput"/>
 
                         <TextBlock Grid.Column="2" Text="Width (mm): " Margin="5" Padding="3" FontWeight="Bold"/>
-                        <TextBox Grid.Column="3" x:Name="WidthBox" Visibility="Visible" VerticalAlignment="Center" Padding="3" PreviewTextInput="IntPreviewTextInput"/>
+                        <TextBox Grid.Column="3" x:Name="WidthBox" IsReadOnly="true" VerticalAlignment="Center" Padding="3" PreviewTextInput="IntPreviewTextInput"/>
                     </Grid>
 
                     <Grid Margin="0">
@@ -183,8 +178,8 @@
                         </Grid.RowDefinitions>
 
                         <TextBlock Grid.Column="0" Text="Images: " Margin="5" Padding="3" FontWeight="Bold"/>
-                        <TextBox Grid.Column="1" x:Name="ImageBox" Visibility="Visible" VerticalAlignment="Center" Padding="3"/>
-                        <Button x:Name="AddImageButton" Grid.Column="2" Click="AddImageButton_Click" Content="+" Padding="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,5,0,5" VerticalContentAlignment="Center"/>
+                        <TextBox Grid.Column="1" x:Name="ImageBox" IsReadOnly="true" VerticalAlignment="Center" Padding="3"/>
+                        <Button x:Name="AddImageButton" IsEnabled="False" Grid.Column="2" Click="AddImageButton_Click" Content="+" Padding="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,5,0,5" VerticalContentAlignment="Center"/>
                         <ListBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Name="ImageListBox" MaxHeight="180" SelectionMode="Single" HorizontalContentAlignment="Stretch">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
@@ -195,7 +190,7 @@
                                             <ColumnDefinition Width="*"></ColumnDefinition>
                                         </Grid.ColumnDefinitions>
 
-                                        <Button Content="[x]" Command="{Binding ElementName=ImageListBox, Path=DataContext.DeleteImageCommand}"
+                                        <Button x:Name="DeleteImage" IsEnabled="false" Content="[x]" Command="{Binding ElementName=ImageListBox, Path=DataContext.DeleteImageCommand}"
                                         CommandParameter="{Binding}" Grid.Column="0" Margin="5" Padding="3" VerticalContentAlignment="Center"/>
                                         <Button Content="🔎︎" Command="{Binding ElementName=ImageListBox, Path=DataContext.ShowImageCommand}"
                                         CommandParameter="{Binding}" Grid.Column="1" Margin="5" Padding="3" VerticalContentAlignment="Center"/>
@@ -206,8 +201,8 @@
                         </ListBox>
 
                         <TextBlock Grid.Column="3" Text="Tags: " Margin="5" Padding="3" FontWeight="Bold"/>
-                        <TextBox Grid.Column="4" x:Name="TagBox" Visibility="Visible" VerticalAlignment="Center" Padding="3"/>
-                        <Button x:Name="AddTagButton" Grid.Column="5" Click="AddTagButton_Click" Content="+" Padding="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,5,0,5" VerticalContentAlignment="Center"/>
+                        <TextBox Grid.Column="4" x:Name="TagBox" IsReadOnly="True" VerticalAlignment="Center" Padding="3"/>
+                        <Button x:Name="AddTagButton" IsEnabled="False" Grid.Column="5" Click="AddTagButton_Click" Content="+" Padding="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,5,0,5" VerticalContentAlignment="Center"/>
                         <ListBox Grid.Column="4" Grid.ColumnSpan="2" Grid.Row="1" Name="TagListBox"  MaxHeight="180" SelectionMode="Single" HorizontalContentAlignment="Stretch">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
@@ -255,7 +250,7 @@
                     </TextBox>
 
                     <DataGrid x:Name="productAttributesDG" Grid.Row="1" Margin="0" SelectionMode="Single" CanUserAddRows="False" HeadersVisibility="Column"
-                          VerticalAlignment="Stretch" AutoGenerateColumns="False">
+                          VerticalAlignment="Stretch" AutoGenerateColumns="False" IsReadOnly="True">
                         <DataGrid.Columns>
 
                             <DataGridTextColumn Binding="{Binding AttributeName}" Header="Attribute Name" Width="*">
@@ -320,7 +315,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="Product Status: " Margin="5" Padding="3"/>
-                        <ComboBox Grid.Column="1" x:Name="ProductStatusComboBox" Margin="0,5,0,5" ItemsSource="{Binding}"/>
+                        <ComboBox Grid.Column="1" x:Name="ProductStatusComboBox" Margin="0,5,0,5" ItemsSource="{Binding}" IsEnabled="False"/>
                     </Grid>
 
                 </Grid>
@@ -367,7 +362,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="Variant Type: " Margin="5" Padding="3"/>
-                        <TextBox Grid.Column="1" x:Name="VariantTypeBox" Visibility="Visible" VerticalAlignment="Center" Padding="3" PreviewTextInput="IntPreviewTextInput"/>
+                        <TextBox Grid.Column="1" x:Name="VariantTypeBox" IsReadOnly="True" VerticalAlignment="Center" Padding="3" PreviewTextInput="IntPreviewTextInput"/>
                     </Grid>
 
                     <Grid Margin="0" Grid.Row="3">
@@ -376,7 +371,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="Variant Data: " Margin="5" Padding="3"/>
-                        <TextBox Grid.Column="1" x:Name="VariantDataBox" Visibility="Visible" VerticalAlignment="Center" Padding="3"/>
+                        <TextBox Grid.Column="1" x:Name="VariantDataBox" IsReadOnly="True" VerticalAlignment="Center" Padding="3"/>
                     </Grid>
 
                     <Grid Margin="0" Grid.Row="4">
@@ -385,7 +380,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="VendorStock: " Margin="5" Padding="3"/>
-                        <TextBox Grid.Column="1" x:Name="VendorStockBox" Visibility="Visible" IsReadOnly="True" VerticalAlignment="Center" Padding="3" PreviewTextInput="IntPreviewTextInput"/>
+                        <TextBox Grid.Column="1" x:Name="VendorStockBox" IsReadOnly="True" VerticalAlignment="Center" Padding="3" PreviewTextInput="IntPreviewTextInput"/>
                     </Grid>
 
                     <Grid Margin="0" Grid.Row="5">
@@ -394,7 +389,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="OurStock: " Margin="5" Padding="3"/>
-                        <TextBox Grid.Column="1" x:Name="OurStockBox" Visibility="Visible"  VerticalAlignment="Center" Padding="3" PreviewTextInput="IntPreviewTextInput"/>
+                        <TextBox Grid.Column="1" x:Name="OurStockBox" IsReadOnly="True" VerticalAlignment="Center" Padding="3" PreviewTextInput="IntPreviewTextInput"/>
                     </Grid>
 
                     <Grid Margin="0" Grid.Row="6">
@@ -403,7 +398,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="Price (€): " Margin="5" Padding="3"/>
-                        <TextBox Grid.Column="1" x:Name="PriceBox" Visibility="Visible" VerticalAlignment="Center" Padding="3" PreviewTextInput="DoublePreviewTextInput"/>
+                        <TextBox Grid.Column="1" x:Name="PriceBox" IsReadOnly="True" VerticalAlignment="Center" Padding="3" PreviewTextInput="DoublePreviewTextInput"/>
 
                     </Grid>
 
@@ -413,7 +408,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="Vendor Price (€): " Margin="5" Padding="3"/>
-                        <TextBox Grid.Column="1" x:Name="VendorPriceBox" Visibility="Visible" VerticalAlignment="Center" Padding="3" PreviewTextInput="DoublePreviewTextInput" IsReadOnly="True"/>
+                        <TextBox Grid.Column="1" x:Name="VendorPriceBox" IsReadOnly="True" VerticalAlignment="Center" Padding="3" PreviewTextInput="DoublePreviewTextInput"/>
                     </Grid>
 
                     <Grid Margin="0" Grid.Row="8">
@@ -421,7 +416,7 @@
                             <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <CheckBox Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" x:Name="PermPriceCheckBox" Margin="5" VerticalAlignment="Center" Content="Make Product Price Permament"/>
+                        <CheckBox Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" x:Name="PermPriceCheckBox" IsEnabled="False" Margin="5" VerticalAlignment="Center" Content="Make Product Price Permament"/>
                     </Grid>
 
                     <Grid Margin="0" Grid.Row="9">
@@ -430,7 +425,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Button x:Name="SaveVariantButton" Grid.Column="0" Click="SaveVariantButton_Click" Content="Save Variant" Padding="15,5,15,5"  Width="120" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Button x:Name="SaveVariantButton" Grid.Column="0" IsEnabled="False" Click="SaveVariantButton_Click" Content="Save Variant" Padding="15,5,15,5"  Width="120" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         <emoji:TextBlock x:Name="SaveVariantLabel" Grid.Column="1" FontSize="12" Text="Variant Saved✅" VerticalAlignment="Center" Visibility="Collapsed"/>
                     </Grid>
                 </Grid>
@@ -443,14 +438,16 @@
             <Grid Margin="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="100"/>
-
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="150"/>
                 </Grid.ColumnDefinitions>
+                
                 <Button x:Name="BackButton" Grid.Column="0" Click="BackButton_Click" Content="Back" Padding="15,5,15,5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <Button x:Name="SaveButton" Grid.Column="1" Click="SaveButton_Click" Content="Save" Padding="15,5,15,5" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Visible"/>
-                <Button x:Name="EditButton" Grid.Column="1" Click="EditButton_Click" Content="Edit" Padding="15,5,15,5" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Hidden"/>
+                <Button x:Name="SaveProductButton" Grid.Column="1" Click="SaveProductButton_Click" Content="Save Product" Padding="15,5,15,5" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Hidden"/>
+                <Button x:Name="EditProductButton" Grid.Column="1" Click="EditProductButton_Click" Content="Edit Product" Padding="15,5,15,5" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Visible"/>
+                <Button x:Name="DeleteProductButton" Grid.Column="3" Click="DeleteProductButton_Click" Content="Delete Product" Padding="15,5,15,5" HorizontalAlignment="Right" VerticalAlignment="Center" Visibility="Visible"/>
             </Grid>
         </Border>
-
     </Grid>
 </Page>

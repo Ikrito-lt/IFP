@@ -736,11 +736,11 @@ namespace IFP.Modules
             Dictionary<string, FullProduct> KGproducts = GetVendorProducts("KG");
             p.AddRange(KGproducts);
 
-            Dictionary<string, FullProduct> PDproducts = GetVendorProducts("PD");
-            p.AddRange(PDproducts);
+            //Dictionary<string, FullProduct> PDproducts = GetVendorProducts("PD");
+            //p.AddRange(PDproducts);
 
-            Dictionary<string, FullProduct> BFproducts = GetVendorProducts("BF");
-            p.AddRange(BFproducts);
+            //Dictionary<string, FullProduct> BFproducts = GetVendorProducts("BF");
+            //p.AddRange(BFproducts);
 
             return p;
         }

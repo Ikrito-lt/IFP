@@ -199,7 +199,7 @@ namespace IFP.Pages
         {
             DataGridRow row = sender as DataGridRow;
             FullProduct product = row.Item as FullProduct;
-            MainWindow.Instance.mainFrame.Content = new ProductEditPage(product, this, CategoryKVP, false);
+            MainWindow.Instance.mainFrame.Content = new ProductInfoPage(product, this);
         }
 
         /// <summary>
