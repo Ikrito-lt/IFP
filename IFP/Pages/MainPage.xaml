@@ -62,7 +62,7 @@
                 </Grid>
 
                 <Button x:Name="RefreshButton" Click="RefreshButton_Click" Content="Refresh" Width="60" Padding="5" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="3"/>
-                <Button x:Name="SettingsButton" Click="SettingsButton_Click" Content="Settings" Width="60" Padding="5" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="4"/>
+                <Button x:Name="SettingsButton" Click="SettingsButton_Click" Content="Settttings" Width="60" Padding="5" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="4"/>
             </Grid>
         </Border>
 
