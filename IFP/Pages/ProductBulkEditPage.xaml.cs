@@ -160,28 +160,45 @@ namespace IFP.Pages
         private void RefreshProductListBoxButton_Click(object sender, RoutedEventArgs e)
         {
             //if vendor type combo box is empty or current product type isnt selected, return
-            if (VendorTypeFilterCBox.SelectedItem == null || currentProductType.Item1 == null || currentProductType.Item2 == null)
+            if (currentProductType.Item1 == null || currentProductType.Item2 == null)
             {
                 return;
             }
 
-            //compiling new ListBoxSource with selected product types
-            string vendorProductType = VendorTypeFilterCBox.SelectedItem.ToString();
-            string productType = currentProductType.Item2;
+            //clearing ListBox Source
             ListBoxSource.Clear();
 
+            //cheking if i need to check for Vendor Product Type and assigning types to check against
+            bool checkVendorType;
+            string vendorProductType = string.Empty;
+            string productType = currentProductType.Item2;
+            if (VendorTypeFilterCBox.SelectedItem == null) {
+                checkVendorType = false;
+            }else{
+                checkVendorType = true;
+                vendorProductType = VendorTypeFilterCBox.SelectedItem.ToString();
+            }
+
+            //compiling new ListBoxSource with selected product types
             foreach ((_, FullProduct p) in Products)
             {
                 var TPlistboxitem = new TypeListBoxItem();
-                TPlistboxitem.VendorProductType = vendorProductType;
+
+                if (checkVendorType)
+                {
+                    //check if product has required product type, if check fails loop continues
+                    if (p.ProductTypeDisplayVal != productType) continue;
+                    //check if product has required vendor product type, if check fails loop continues
+                    if (p.ProductTypeVendor.Trim() != vendorProductType) continue;
+                }
+                else {
+                    //check if product has required product type, if check fails loop continues
+                    if (p.ProductTypeDisplayVal != productType) continue;
+                }
+
+                //if checks passed, give TPlistboxitem - sku - title and both product types;
+                TPlistboxitem.VendorProductType = p.ProductTypeVendor;
                 TPlistboxitem.ProductType = productType;
-
-                //check if product has required product type, if check fails loop continues
-                if (p.ProductTypeDisplayVal != productType) continue;
-                //check if product has required vendor product type, if check fails loop continues
-                if (p.ProductTypeVendor.Trim() != vendorProductType) continue;
-
-                //if both checks passed, give TPlistboxitem - sku - title;
                 TPlistboxitem.SKU = p.SKU;
                 TPlistboxitem.Title = p.TitleLT;
                 TPlistboxitem.Selected = false;
