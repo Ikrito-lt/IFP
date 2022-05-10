@@ -29,14 +29,16 @@ namespace IFP.Pages
 
 
         //for handling adding images to the product
+        protected List<string> ProductImages;
         protected ObservableCollection<string> ImgListBoxDataSource;
-        protected ICommand DeleteImageCommand { get; set; }
-        protected ICommand ShowImageCommand { get; set; }
+        public ICommand DeleteImageCommand { get; set; }
+        public ICommand ShowImageCommand { get; set; }
 
 
         //for handling adding tags to the products
+        protected List<string> ProductTags;
         protected ObservableCollection<string> TagListBoxDataSource;
-        protected ICommand DeleteTagCommand { get; set; }
+        public ICommand DeleteTagCommand { get; set; }
 
 
         //Constructor
@@ -90,11 +92,13 @@ namespace IFP.Pages
             SelectCategoryButton.Content = ProductType.Item2;
 
             //Image listBox init
+            ProductImages = new List<string>(EditableProduct.Images);
             ImgListBoxDataSource = new ObservableCollection<string>(EditableProduct.Images);
             ImageListBox.ItemsSource = ImgListBoxDataSource;
             ShowImageCommand = new DelegateCommand<object>(ShowImage);
 
             //Tag listBox init
+            ProductTags = new List<string>(EditableProduct.Tags);
             TagListBoxDataSource = new ObservableCollection<string>(EditableProduct.Tags);
             TagListBox.ItemsSource = TagListBoxDataSource;
 
@@ -169,7 +173,7 @@ namespace IFP.Pages
         /// </summary>
         /// <param name="pv"></param>
         /// <returns></returns>
-        private string GetVariantComboBoxItemName(ProductVariant pv)
+        protected string GetVariantComboBoxItemName(ProductVariant pv)
         {
             string variantBarcode;
             if (string.IsNullOrEmpty(pv.Barcode))
@@ -211,14 +215,14 @@ namespace IFP.Pages
         private void ShowImage(object item)
         {
             string imgLink = item as string;
+            //todo: doesnt open BF image links
             SiteNav.GoToSite(imgLink);
         }
 
         /// <summary>
         /// Method that navigates to previous page
         /// </summary>
-        private void NavigateToPreviousPage() {
-
+        protected void NavigateToPreviousPage() {
             MainWindow.Instance.SetWindowTitle();
             ProductBrowsePage.Instance.RefreshDataGrid();
             MainWindow.Instance.mainFrame.Content = PreviousPage;
@@ -240,16 +244,6 @@ namespace IFP.Pages
         }
 
         /// <summary>
-        /// Button onClick method to navigate to previous page
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void BackButton_Click(object sender, RoutedEventArgs e)
-        {
-            NavigateToPreviousPage();
-        }
-
-        /// <summary>
         /// Button onClick method to delete editable product from database
         /// </summary>
         /// <param name="sender"></param>
@@ -258,6 +252,16 @@ namespace IFP.Pages
         {
             ProductStore.DeleteProduct(EditableProduct.SKU);
             ProductStore.Instance.ProductKVP.Remove(EditableProduct.SKU);
+            NavigateToPreviousPage();
+        }
+
+        /// <summary>
+        /// (Overridden) Button onClick method to navigate to previous page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected virtual void BackButton_Click(object sender, RoutedEventArgs e)
+        {
             NavigateToPreviousPage();
         }
 
@@ -306,49 +310,34 @@ namespace IFP.Pages
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void SelectCategoryButton_Click(object sender, RoutedEventArgs e)
-        {
-            return;
-        }
+        protected virtual void SelectCategoryButton_Click(object sender, RoutedEventArgs e) { }
 
         /// <summary>
         /// (Overridden) button onClick method that adds link to product.images
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void AddImageButton_Click(object sender, RoutedEventArgs e)
-        {
-            return;
-        }
+        protected virtual void AddImageButton_Click(object sender, RoutedEventArgs e) { }
 
         /// <summary>
         /// (Overridden) button onClick method that adds tag to product.tags
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void AddTagButton_Click(object sender, RoutedEventArgs e)
-        {
-            return;
-        }
+        protected virtual void AddTagButton_Click(object sender, RoutedEventArgs e) { }
 
         /// <summary>
         /// (Overridden) button onClick method that saves product to database
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void SaveProductButton_Click(object sender, RoutedEventArgs e)
-        {
-            return;
-        }
+        protected virtual void SaveProductButton_Click(object sender, RoutedEventArgs e) { }
 
         /// <summary>
         /// (Overridden) button onClick method that saves product variant to database
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void SaveVariantButton_Click(object sender, RoutedEventArgs e)
-        {
-            return;
-        }
+        protected virtual void SaveVariantButton_Click(object sender, RoutedEventArgs e) { }
     }
 }

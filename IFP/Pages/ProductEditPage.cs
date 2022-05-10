@@ -1,30 +1,34 @@
 ﻿using IFP.Models;
+using IFP.Singletons;
+using IFP.UI;
 using Microsoft.VisualStudio.PlatformUI;
-using System.Windows;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
+using static IFP.Models.FullProduct;
 
 namespace IFP.Pages
 {
     internal class ProductEditPage : ProductInfoPage
     {
-        private bool ProductChanged = false;
+        protected bool ProductChanged = false;
 
         // Constructor
-        public ProductEditPage(FullProduct product, Page prevPage) : base(product, prevPage) {
+        public ProductEditPage(FullProduct product, Page prevPage) : base(product, prevPage)
+        {
             MainWindow.Instance.SetWindowTitle($"Product Edit Page ({product.SKU})");
             MakePageEditable();
+            AddProductChangedCheck();
         }
 
 
         // Init Section
 
         /// <summary>
-        /// method that makes page readonly todo:redo this
+        /// Method that makes ProductInfoPage UI editable to enable the editing of product information
         /// </summary>
         private void MakePageEditable()
         {
@@ -83,6 +87,55 @@ namespace IFP.Pages
             EditProductButton.Visibility = Visibility.Hidden;
         }
 
+        /// <summary>
+        /// Method to add product changed check to text boxes 
+        /// </summary>
+        private void AddProductChangedCheck() {
+            // adding on change text flip product saved bool
+            TitleBoxLT.TextChanged += SaveFlip_TextChanged;
+            TitleBoxLV.TextChanged += SaveFlip_TextChanged;
+            TitleBoxEE.TextChanged += SaveFlip_TextChanged;
+            TitleBoxRU.TextChanged += SaveFlip_TextChanged;
+
+            DescBoxLT.TextChanged += SaveFlip_TextChanged;
+            DescBoxLV.TextChanged += SaveFlip_TextChanged;
+            DescBoxEE.TextChanged += SaveFlip_TextChanged;
+            DescBoxRU.TextChanged += SaveFlip_TextChanged;
+
+            VendorBox.TextChanged += SaveFlip_TextChanged;
+
+            WeightBox.TextChanged += SaveFlip_TextChanged;
+            HeightBox.TextChanged += SaveFlip_TextChanged;
+            WidthBox.TextChanged += SaveFlip_TextChanged;
+            LenghtBox.TextChanged += SaveFlip_TextChanged;
+
+            //adding category KVP to product type combobox
+            ProductStatusComboBox.SelectionChanged += SaveFlipComboBox_SelectionChanged;
+        }
+
+
+        // Methods that flip Product changed bit on textbox or combobox change 
+
+        /// <summary>
+        /// flips ProductChanged bool to indicate that product was changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SaveFlip_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ProductChanged = true;
+        }
+
+        /// <summary>
+        /// flips ProductChanged bool to indicate that product was changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SaveFlipComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ProductChanged = true;
+        }
+
 
         // Methods that get passed to buttons in tag and image listboxes
 
@@ -113,439 +166,211 @@ namespace IFP.Pages
         }
 
 
-        ///// <summary>
-        ///// initialiazes UI with editable product data
-        ///// </summary>
-        //private void ProductFieldInit()
-        //{
-
-        //    TitleBoxLT.Text = EditableProduct.TitleLT;
-        //    TitleBoxLV.Text = EditableProduct.TitleLV;
-        //    TitleBoxEE.Text = EditableProduct.TitleEE;
-        //    TitleBoxRU.Text = EditableProduct.TitleRU;
-
-        //    DescBoxLT.Text = EditableProduct.DescLT;
-        //    DescBoxLV.Text = EditableProduct.DescLV;
-        //    DescBoxEE.Text = EditableProduct.DescEE;
-        //    DescBoxRU.Text = EditableProduct.DescRU;
-
-        //    VendorBox.Text = EditableProduct.Vendor;
-
-        //    AddedTimeLabel.Content = EditableProduct.GetAddedTime().ToString();
-        //    DeliveryTimeLabel.Content = EditableProduct.DeliveryTime;
-
-        //    HeightBox.Text = EditableProduct.Height.ToString();
-        //    WeightBox.Text = EditableProduct.Weight.ToString();
-        //    WidthBox.Text = EditableProduct.Width.ToString();
-        //    LenghtBox.Text = EditableProduct.Lenght.ToString();
-        //    VendorProductTypeLabel.Content = EditableProduct.ProductTypeVendor;
-
-        //    //Image listBox init
-        //    ImgListBoxDataSource = new ObservableCollection<string>(EditableProduct.Images);
-        //    ImageListBox.ItemsSource = ImgListBoxDataSource;
-        //    DeleteImageCommand = new DelegateCommand<object>(DeleteImage);
-        //    ShowImageCommand = new DelegateCommand<object>(ShowImage);
-
-        //    //adding tags and tag commands
-        //    TagListBoxDataSource = new ObservableCollection<string>(EditableProduct.Tags);
-        //    TagListBox.ItemsSource = TagListBoxDataSource;
-        //    DeleteTagCommand = new DelegateCommand<object>(DeleteTag);
-
-        //    //adding attributtes to data grid
-        //    var productAttributesArray = from row in EditableProduct.ProductAttributtes select new { AttributeName = row.Key, AttributeValue = row.Value };
-        //    productAttributesDG.ItemsSource = productAttributesArray.ToArray();
-
-        //    //setting attributte and variant labels
-        //    ProductAttributtesLabel.Text = $"Product Attributtes ({EditableProduct.SKU})";
-        //    ProductVariantsLabel.Text = $"Product Variants ({EditableProduct.SKU})";
-
-        //    //setting up the product status UX
-        //    ProductStatusLabel.Text = $"Product Status ({EditableProduct.SKU})";
-        //    ProductStatusComboBox.ItemsSource = ProductStatuses;
-        //    ProductStatusComboBox.SelectedItem = EditableProduct.Status;
-        //    ProductStatusComboBox.Items.Refresh();
-
-        //    //setting up the variants
-        //    InitVariants();
-
-        //    // adding on change text flip product saved bool
-        //    TitleBoxLT.TextChanged += SaveFlip_TextChanged;
-        //    TitleBoxLV.TextChanged += SaveFlip_TextChanged;
-        //    TitleBoxEE.TextChanged += SaveFlip_TextChanged;
-        //    TitleBoxRU.TextChanged += SaveFlip_TextChanged;
-
-        //    DescBoxLT.TextChanged += SaveFlip_TextChanged;
-        //    DescBoxLV.TextChanged += SaveFlip_TextChanged;
-        //    DescBoxEE.TextChanged += SaveFlip_TextChanged;
-        //    DescBoxRU.TextChanged += SaveFlip_TextChanged;
-
-        //    VendorBox.TextChanged += SaveFlip_TextChanged;
-
-        //    WeightBox.TextChanged += SaveFlip_TextChanged;
-        //    HeightBox.TextChanged += SaveFlip_TextChanged;
-        //    WidthBox.TextChanged += SaveFlip_TextChanged;
-        //    LenghtBox.TextChanged += SaveFlip_TextChanged;
-
-        //    //adding category KVP to product type combobox
-        //    ProductStatusComboBox.SelectionChanged += SaveFlipComboBox_SelectionChanged;
-        //}
-
-        ///// <summary>
-        ///// method to initialize product variant UX
-        ///// </summary>
-        //private void InitVariants()
-        //{
-        //    EditableVariantsKVP.Clear();
-        //    foreach (var pv in EditableProduct.ProductVariants)
-        //    {
-        //        EditableVariantsKVP.Add(GetVariantComboboxItemName(pv), pv);
-        //    }
-
-        //    ProductVariantComboBox.ItemsSource = EditableVariantsKVP;
-        //    ProductVariantComboBox.SelectionChanged += (object sender, SelectionChangedEventArgs e) =>
-        //    {
-        //        ComboBox comboBox = e.Source as ComboBox;
-        //        if (comboBox.SelectedItem != null)
-        //        {
-        //            KeyValuePair<string, ProductVariant> variantKVP = (KeyValuePair<string, ProductVariant>)comboBox.SelectedItem;
-        //            ProductVariant pv = variantKVP.Value;
-
-        //            VariantTypeBox.Text = pv.VariantType;
-        //            VariantDataBox.Text = pv.VariantData;
-        //            VendorStockBox.Text = pv.VendorStock.ToString();
-        //            OurStockBox.Text = pv.OurStock.ToString();
-        //            PriceBox.Text = pv.Price.ToString();
-        //            VendorPriceBox.Text = pv.PriceVendor.ToString();
-        //            PermPriceCheckBox.IsChecked = pv.PermPrice;
-        //        }
-        //        else
-        //        {
-        //            VariantTypeBox.Text = null;
-        //            VariantDataBox.Text = null;
-        //            VendorStockBox.Text = null;
-        //            OurStockBox.Text = null;
-        //            PriceBox.Text = null;
-        //            VendorPriceBox.Text = null;
-        //            PermPriceCheckBox.IsChecked = false;
-        //        }
-        //    };
-        //    //selectiong first variant
-        //    ProductVariantComboBox.SelectedIndex = 0;
-        //}
-
-        ///// <summary>
-        ///// is used to build a name for ProductVariantCombobox item KVP
-        ///// </summary>
-        ///// <param name="pv"></param>
-        ///// <returns></returns>
-        //private string GetVariantComboboxItemName(ProductVariant pv)
-        //{
-        //    string variantBarcode;
-        //    if (string.IsNullOrEmpty(pv.Barcode))
-        //    {
-        //        variantBarcode = "No Barcode";
-        //    }
-        //    else
-        //    {
-        //        variantBarcode = pv.Barcode;
-        //    }
-
-        //    string variantType;
-        //    if (string.IsNullOrEmpty(pv.VariantType))
-        //    {
-        //        variantType = "No Variant Type";
-        //    }
-        //    else
-        //    {
-        //        variantType = pv.VariantType;
-        //    }
-
-        //    string variantData;
-        //    if (string.IsNullOrEmpty(pv.VariantData))
-        //    {
-        //        variantData = "No Variant Data";
-        //    }
-        //    else
-        //    {
-        //        variantData = pv.VariantData;
-        //    }
-
-        //    return $"{variantBarcode} ({variantType}: {variantData})";
-        //}
-
-
-        ///// <summary>
-        ///// collects data from UX and created new product object, saves it to database, and  
-        ///// </summary>
-        ///// <returns></returns>
-        //private FullProduct saveProduct()
-        //{
-        //    FullProduct newProduct = new();
-        //    //adding string values
-        //    newProduct.TitleLT = TitleBoxLT.Text;
-        //    newProduct.TitleLV = TitleBoxLV.Text;
-        //    newProduct.TitleEE = TitleBoxEE.Text;
-        //    newProduct.TitleRU = TitleBoxRU.Text;
-
-        //    newProduct.DescLT = DescBoxLT.Text;
-        //    newProduct.DescLV = DescBoxLV.Text;
-        //    newProduct.DescEE = DescBoxEE.Text;
-        //    newProduct.DescRU = DescBoxRU.Text;
-
-        //    newProduct.Vendor = VendorBox.Text;
-        //    newProduct.SKU = EditableProduct.SKU;
-
-        //    //saving product type selection category
-
-        //    //saving product dimensions
-        //    newProduct.Height = int.Parse(HeightBox.Text);
-        //    newProduct.Width = int.Parse(WidthBox.Text);
-        //    newProduct.Lenght = int.Parse(LenghtBox.Text);
-        //    newProduct.Weight = double.Parse(WeightBox.Text);
-
-        //    //adding tags and images;
-        //    newProduct.Images = ImgListBoxDataSource.ToList();
-        //    newProduct.Tags = TagListBoxDataSource.ToList();
-
-        //    //adding vendor type and added date
-        //    newProduct.AddedTimeStamp = EditableProduct.AddedTimeStamp;
-        //    newProduct.ProductTypeVendor = EditableProduct.ProductTypeVendor;
-        //    newProduct.DeliveryTime = EditableProduct.DeliveryTime;
-
-        //    //saving variants and attributes
-        //    newProduct.ProductVariants = EditableVariantsKVP.Values.ToList();
-        //    newProduct.ProductAttributtes = EditableProduct.ProductAttributtes;
-
-        //    //saving product util fields
-        //    newProduct.Status = EditableProduct.Status;
-        //    newProduct.ProductTypeDisplayVal = ProductCategoryModule.Instance.CategoryKVP[newProduct.ProductTypeID];
-
-        //    //saving Product Status
-        //    newProduct.Status = ProductStatusComboBox.SelectedItem as string;
-
-        //    //todo: change this and add manual product status change
-        //    ProductModule.UpdateProductToDB(newProduct, newProduct.Status);
-
-        //    return newProduct;
-        //}
-
-
-        ////
-        //// Buttons section
-        ////
-
-        ///// <summary>
-        ///// method that saves variant into variant combobox Dictionary
-        ///// </summary>
-        ///// <param name="sender"></param>
-        ///// <param name="e"></param>
-        //private void SaveVariantButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    var selectedVariantKVP = ProductVariantComboBox.SelectedItem;
-        //    if (selectedVariantKVP != null)
-        //    {
-        //        ProductVariant selectedVariant = ((KeyValuePair<string, ProductVariant>)selectedVariantKVP).Value;
-        //        string key = ((KeyValuePair<string, ProductVariant>)selectedVariantKVP).Key;
-
-        //        //saving product variant data
-        //        selectedVariant.VariantType = VariantTypeBox.Text;
-        //        selectedVariant.VariantData = VariantDataBox.Text;
-        //        selectedVariant.VendorStock = int.Parse(VendorStockBox.Text);
-        //        selectedVariant.OurStock = int.Parse(OurStockBox.Text);
-        //        selectedVariant.Price = double.Parse(PriceBox.Text);
-        //        selectedVariant.PriceVendor = double.Parse(VendorPriceBox.Text);
-        //        selectedVariant.PermPrice = PermPriceCheckBox.IsChecked == true;
-
-        //        //replace in combobox dictionary
-        //        string newKey = GetVariantComboboxItemName(selectedVariant);
-        //        EditableVariantsKVP.Remove(key);
-        //        EditableVariantsKVP.Add(newKey, selectedVariant);
-        //        ProductVariantComboBox.ItemsSource = EditableVariantsKVP;
-        //        ProductVariantComboBox.Items.Refresh();
-        //    }
-
-        //    //adding animation
-        //    SaveVariantLabel.Visibility = Visibility.Visible;
-        //    BackgroundWorker worker = new();
-        //    worker.DoWork += (sender, e) => {
-        //        //waits for 3s
-        //        System.Threading.Thread.Sleep(3000);
-        //    };
-        //    worker.RunWorkerCompleted += (sender, e) => {
-        //        // background Worker for loading all product on complete
-        //        SaveVariantLabel.Visibility = Visibility.Collapsed;
-        //    };
-        //    worker.RunWorkerAsync();
-
-        //    //setting product changed flag to true
-        //    ProductChanged = true;
-        //}
-
-        ///// <summary>
-        ///// method that chnages page to product browse page
-        ///// </summary>
-        //private void exitPage()
-        //{
-        //    //changing window title
-        //    MainWindow.Instance.SetWindowTitle();
-
-        //    //saving product logic with  out downloading it form database
-        //    if (ProductBrowsePage.Instance != null)
-        //    {
-        //        var browsePage = ProductBrowsePage.Instance;
-        //        FullProduct editedProductDB = ProductModule.GetProduct(EditableProduct.SKU);
-        //        browsePage.AllProducts[editedProductDB.SKU] = editedProductDB;
-        //        browsePage.RefreshDataGrid();
-        //    }
-
-        //    //changing price in pigu inntegration page
-        //    if (PreviousPage is PiguIntegrationPage)
-        //    {
-        //        (PreviousPage as PiguIntegrationPage).AllProducts[EditableProduct.SKU] = ProductModule.GetProduct(EditableProduct.SKU);
-        //    }
-
-        //    //chnaging the page
-        //    MainWindow.Instance.mainFrame.Content = PreviousPage;
-        //}
-
-        ///// <summary>
-        ///// save button on click method
-        ///// </summary>
-        ///// <param name="sender"></param>
-        ///// <param name="e"></param>
-        //private void SaveProductButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    saveProduct();
-        //    ProductChanged = false;
-        //    exitPage();
-        //}
-
-        ///// <summary>
-        ///// method for editng page if it is readonly
-        ///// </summary>
-        ///// <param name="sender"></param>
-        ///// <param name="e"></param>
-        //private void EditProductButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    MainWindow.Instance.setFrame(new ProductEditPage(EditableProduct, PreviousPage, CategoryKVP));
-
-        //}
-
-        ///// <summary>
-        ///// back button on click method (checks if product needs saving, opens confirmation dialog box and exits)
-        ///// </summary>
-        ///// <param name="sender"></param>
-        ///// <param name="e"></param>
-        //private void BackButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (!ProductChanged)
-        //    {
-        //        exitPage();
-        //    }
-        //    else
-        //    {
-        //        DialogueYN dialog = new("Save product?");
-        //        bool answer = dialog.ShowDialog() ?? false;
-
-        //        if (answer)
-        //        {
-        //            saveProduct();
-        //            exitPage();
-        //        }
-        //        else
-        //        {
-        //            exitPage();
-        //        }
-        //    }
-        //}
-
-        ///// <summary>
-        ///// on button click method that adds link to product.tags
-        ///// </summary>
-        ///// <param name="sender"></param>
-        ///// <param name="e"></param>
-        //private void AddTagButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    string newTag = TagBox.Text;
-        //    TagListBoxDataSource.Add(newTag);
-        //    EditableProduct.Tags.Add(newTag);
-        //    TagBox.Text = null;
-
-        //    //setting product changed flag to true
-        //    ProductChanged = true;
-        //}
-
-
-        ///// <summary>
-        ///// on button click method that adds linkt to product.images
-        ///// </summary>
-        ///// <param name="sender"></param>
-        ///// <param name="e"></param>
-        //private void AddImageButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    string newImageLink = ImageBox.Text;
-        //    ImgListBoxDataSource.Add(newImageLink);
-        //    EditableProduct.Images.Add(newImageLink);
-        //    ImageBox.Text = null;
-
-        //    //setting product changed flag to true
-        //    ProductChanged = true;
-        //}
-
-
-
-        ////
-        ////section for flipping ProductSaved bool and input validation of double and int inputs
-        ////
-
-        ///// <summary>
-        ///// allows only double to be entered (numbers and .)
-        ///// </summary>
-        ///// <param name="sender"></param>
-        ///// <param name="e"></param>
-        //private void DoublePreviewTextInput(object sender, TextCompositionEventArgs e)
-        //{
-        //    //matching if value can be parsed as double
-        //    var textBox = sender as TextBox;
-        //    string updatedText = textBox.Text + e.Text;
-        //    bool doubleParsable = !double.TryParse(updatedText, out _);
-
-        //    e.Handled = doubleParsable;
-        //}
-
-        ///// <summary>
-        ///// allows only int to be entered (numbers)
-        ///// </summary>
-        ///// <param name="sender"></param>
-        ///// <param name="e"></param>
-        //private void IntPreviewTextInput(object sender, TextCompositionEventArgs e)
-        //{
-        //    //matching if value can be parsed as int
-        //    var textBox = sender as TextBox;
-        //    string updatedText = textBox.Text + e.Text;
-        //    bool intParsable = !int.TryParse(updatedText, out _);
-
-        //    e.Handled = intParsable;
-        //}
-
-        ///// <summary>
-        ///// flips ProductChanged bool to indicate that product was changed
-        ///// </summary>
-        ///// <param name="sender"></param>
-        ///// <param name="e"></param>
-        //private void SaveFlip_TextChanged(object sender, TextChangedEventArgs e)
-        //{
-        //    ProductChanged = true;
-        //}
-
-        ///// <summary>
-        ///// flips ProductChanged bool to indicate that product was changed
-        ///// </summary>
-        ///// <param name="sender"></param>
-        ///// <param name="e"></param>
-        //private void SaveFlipComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    ProductChanged = true;
-        //}
+        // Section for onClick methods that are overridden in child classes 
+
+        /// <summary>
+        /// (Overridden) button onClick for changing product category
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected override void SelectCategoryButton_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            var categoryTreeSelector = new CategoryTreeSelectorWindow("Select Category From CategoryTree");
+            if (categoryTreeSelector.ShowDialog() == true)
+            {
+                var selectedCategoryTuple = categoryTreeSelector.selectionResult;
+                button.Content = selectedCategoryTuple.Item2;
+                ProductType = selectedCategoryTuple;
+            }
+            else
+            {
+                button.Content = "Not-Assigned";
+                ProductType = new(1, "Not-Assigned");
+            }
+        }
+
+        /// <summary>
+        /// (Overridden) button onClick method that adds link to product.images
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected override void AddImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            string newImageLink = ImageBox.Text;
+            ImgListBoxDataSource.Add(newImageLink);
+            EditableProduct.Images.Add(newImageLink);
+            ImageBox.Text = null;
+
+            //setting product changed flag to true
+            ProductChanged = true;
+        }
+
+        /// <summary>
+        /// (Overridden) button onClick method that adds tag to product.tags
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected override void AddTagButton_Click(object sender, RoutedEventArgs e)
+        {
+            string newTag = TagBox.Text;
+            TagListBoxDataSource.Add(newTag);
+            EditableProduct.Tags.Add(newTag);
+            TagBox.Text = null;
+
+            //setting product changed flag to true
+            ProductChanged = true;
+        }
+
+        /// <summary>
+        /// (Overridden) button onClick method that saves product variant to database
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected override void SaveVariantButton_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedVariantKVP = ProductVariantComboBox.SelectedItem;
+            //returning if not variant is selected
+            if (selectedVariantKVP == null) return;
+
+            ProductVariant selectedVariant = ((KeyValuePair<string, ProductVariant>)selectedVariantKVP).Value;
+            string key = ((KeyValuePair<string, ProductVariant>)selectedVariantKVP).Key;
+
+            //saving product variant data
+            selectedVariant.VariantType = VariantTypeBox.Text;
+            selectedVariant.VariantData = VariantDataBox.Text;
+            selectedVariant.VendorStock = int.Parse(VendorStockBox.Text);
+            selectedVariant.OurStock = int.Parse(OurStockBox.Text);
+            selectedVariant.Price = double.Parse(PriceBox.Text);
+            selectedVariant.PriceVendor = double.Parse(VendorPriceBox.Text);
+            selectedVariant.PermPrice = PermPriceCheckBox.IsChecked == true;
+
+            //replace in combobox dictionary
+            string newKey = GetVariantComboBoxItemName(selectedVariant);
+            EditableVariantsKVP.Remove(key);
+            EditableVariantsKVP.Add(newKey, selectedVariant);
+            ProductVariantComboBox.ItemsSource = EditableVariantsKVP;
+            ProductVariantComboBox.Items.Refresh();
+
+
+            //adding animation
+            SaveVariantLabel.Visibility = Visibility.Visible;
+            BackgroundWorker worker = new();
+            worker.DoWork += (sender, e) =>
+            {
+                //wait for 3s
+                System.Threading.Thread.Sleep(3000);
+            };
+            worker.RunWorkerCompleted += (sender, e) =>
+            {
+                SaveVariantLabel.Visibility = Visibility.Collapsed;
+            };
+            worker.RunWorkerAsync();
+
+            //setting product changed flag to true
+            ProductChanged = true;
+        }
+
+        /// <summary>
+        /// (Overridden) button onClick method that saves product to database
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected override void SaveProductButton_Click(object sender, RoutedEventArgs e)
+        {
+            SaveProduct();
+            ProductChanged = false;
+        }
+
+        /// <summary>
+        /// (Overridden) button onClick method that to navigate to previous page 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected override void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!ProductChanged)
+            {
+                NavigateToPreviousPage();
+            }
+            else
+            {
+                DialogueYN dialog = new("Save product?");
+                bool answer = dialog.ShowDialog() ?? false;
+
+                if (answer)
+                {
+                    SaveProduct();
+                    NavigateToPreviousPage();
+                }
+                else
+                {
+                    //restoring tags and images
+                    EditableProduct.Images = ProductImages;
+                    EditableProduct.Tags = ProductTags;
+                    NavigateToPreviousPage();
+                }
+            }
+        }
+
+
+        // Savinf Product Section
+
+        /// <summary>
+        /// Collects data from UI and creates new product object, saves it to database and ProductStore  
+        /// </summary>
+        /// <returns></returns>
+        private void SaveProduct()
+        {
+            FullProduct newProduct = new();
+            //adding string values
+            newProduct.TitleLT = TitleBoxLT.Text;
+            newProduct.TitleLV = TitleBoxLV.Text;
+            newProduct.TitleEE = TitleBoxEE.Text;
+            newProduct.TitleRU = TitleBoxRU.Text;
+
+            newProduct.DescLT = DescBoxLT.Text;
+            newProduct.DescLV = DescBoxLV.Text;
+            newProduct.DescEE = DescBoxEE.Text;
+            newProduct.DescRU = DescBoxRU.Text;
+
+            newProduct.Vendor = VendorBox.Text;
+            newProduct.SKU = EditableProduct.SKU;
+
+            //saving product type selection category
+
+            //saving product dimensions
+            newProduct.Height = int.Parse(HeightBox.Text);
+            newProduct.Width = int.Parse(WidthBox.Text);
+            newProduct.Lenght = int.Parse(LenghtBox.Text);
+            newProduct.Weight = double.Parse(WeightBox.Text);
+
+            //adding tags and images;
+            newProduct.Images = ImgListBoxDataSource.ToList();
+            newProduct.Tags = TagListBoxDataSource.ToList();
+
+            //adding vendor type and added date
+            newProduct.AddedTimeStamp = EditableProduct.AddedTimeStamp;
+            newProduct.ProductTypeVendor = EditableProduct.ProductTypeVendor;
+            newProduct.DeliveryTime = EditableProduct.DeliveryTime;
+
+            //saving variants and attributes
+            newProduct.ProductVariants = EditableVariantsKVP.Values.ToList();
+            newProduct.ProductAttributtes = EditableProduct.ProductAttributtes;
+
+            //saving product util fields
+            newProduct.Status = EditableProduct.Status;
+            newProduct.ProductTypeDisplayVal = ProductType.Item2;
+            newProduct.ProductTypeID = ProductType.Item1.ToString();
+
+            //saving Product Status
+            newProduct.Status = ProductStatusComboBox.SelectedItem as string;
+
+            //todo: change this and add manual product status change
+            ProductStore.UpdateProductToDB(newProduct, newProduct.Status);
+            ProductStore.Instance.ProductKVP[newProduct.SKU] = newProduct;
+        }
+
+        //todo: add editing to product attributtes
     }
 }

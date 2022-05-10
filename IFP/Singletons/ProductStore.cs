@@ -586,6 +586,9 @@ namespace IFP.Singletons
             DataBaseInterface db = new();
             string tablePrefix = p.SKU.GetBeginingOrEmpty();
 
+            //changing product category id
+            ProductCategoryStore.ChangeProductCategory(p.SKU, p.ProductTypeID);
+
             //updating *_Products table
             var updateData = new Dictionary<string, string>
             {
@@ -600,7 +603,6 @@ namespace IFP.Singletons
                 ["BodyRU"] = p.DescRU,
 
                 ["Vendor"] = p.Vendor,
-                ["ProductType_ID"] = p.ProductTypeID,
                 ["Weight"] = p.Weight.ToString(),
                 ["Height"] = p.Height.ToString(),
                 ["Lenght"] = p.Lenght.ToString(),

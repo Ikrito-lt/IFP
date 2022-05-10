@@ -362,7 +362,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="Variant Type: " Margin="5" Padding="3"/>
-                        <TextBox Grid.Column="1" x:Name="VariantTypeBox" IsReadOnly="True" VerticalAlignment="Center" Padding="3" PreviewTextInput="IntPreviewTextInput"/>
+                        <TextBox Grid.Column="1" x:Name="VariantTypeBox" IsReadOnly="True" VerticalAlignment="Center" Padding="3"/>
                     </Grid>
 
                     <Grid Margin="0" Grid.Row="3">
