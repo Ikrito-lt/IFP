@@ -10,7 +10,7 @@ namespace IFP.Models
     public class FullProduct
     {
         public string SKU { set; get; } = "Product SKU Not Set";
-        public string ProductTypeID { set; get; } = "Product Category ID Not Set";
+        public string ProductTypeID { set; get; }
         public string Vendor { set; get; } = "Product Vendor Not Set";
         public string TitleLT { set; get; } = "Product LT Title Not Set";
         public string TitleLV { set; get; }
@@ -20,16 +20,15 @@ namespace IFP.Models
         public string DescLV { set; get; }
         public string DescEE { set; get; }
         public string DescRU { set; get; }
-        public double Weight { set; get; }              //in kg
-        public int Height { set; get; }                 //in mm
-        public int Lenght { set; get; }                 //in mm
-        public int Width { set; get; }                  //in mm
+        public double Weight { set; get; } = .0;                //in kg
+        public int Height { set; get; } = 0;                    //in mm
+        public int Lenght { set; get; } = 0;                    //in mm
+        public int Width { set; get; } = 0;                     //in mm
         public string ProductTypeVendor { set; get; }  //for saving vendor product type to database.
         public string DeliveryTime { set; get; }       //delivery time string
         public string AddedTimeStamp { set; get; }     //timestamp of when product was created
         public DateTime GetAddedTime()
         {
-
             DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
             double timestamp = double.Parse(AddedTimeStamp ?? "0");
             dateTime = dateTime.AddSeconds(timestamp).ToLocalTime();
@@ -76,6 +75,33 @@ namespace IFP.Models
                 return true;
             }
         }
+
         //TODO: think about adding SEO shit
+
+        // For creating new product inside the app
+        public FullProduct(bool creatingNew = false) {
+            if (creatingNew) {
+                SKU = "IKR-";
+                ProductTypeID = "1"; 
+                Vendor = "Product Vendor Not Set";
+                TitleLT = "Product LT Title Not Set";
+                TitleLV = "";
+                TitleEE = "";
+                TitleRU = ""; 
+                DescLT = "Product LT Description Not Set";
+                DescLV = "";
+                DescEE = "";
+                DescRU = ""; 
+                Weight = .0;                //in kg
+                Height = 0;                    //in mm
+                Lenght = 0;                    //in mm
+                Width = 0;                     //in mm
+                ProductTypeVendor = "";
+                DeliveryTime = "3";
+                AddedTimeStamp = DateTimeOffset.Now.ToUnixTimeSeconds().ToString();
+                Status = "New";
+                ProductTypeDisplayVal = "Not-Assigned";
+            }        
+        }
     }
 }

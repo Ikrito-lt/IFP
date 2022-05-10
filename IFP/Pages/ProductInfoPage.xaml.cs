@@ -78,18 +78,20 @@ namespace IFP.Pages
             DescBoxRU.Text = EditableProduct.DescRU;
 
             VendorBox.Text = EditableProduct.Vendor;
+            SKUBox.Text = EditableProduct.SKU;
 
-            AddedTimeLabel.Content = EditableProduct.GetAddedTime().ToString();
-            DeliveryTimeLabel.Content = EditableProduct.DeliveryTime;
+            VendorProductTypeBox.Text = EditableProduct.ProductTypeVendor;
+            AddedTimeBox.Text = EditableProduct.GetAddedTime().ToString();
+
+            //Product type button init
+            SelectCategoryButton.Content = ProductType.Item2;
+            DeliveryTimeBox.Text = EditableProduct.DeliveryTime;
 
             HeightBox.Text = EditableProduct.Height.ToString();
             WeightBox.Text = EditableProduct.Weight.ToString();
             WidthBox.Text = EditableProduct.Width.ToString();
             LenghtBox.Text = EditableProduct.Lenght.ToString();
-            VendorProductTypeLabel.Content = EditableProduct.ProductTypeVendor;
 
-            //Product type button init
-            SelectCategoryButton.Content = ProductType.Item2;
 
             //Image listBox init
             ProductImages = new List<string>(EditableProduct.Images);
@@ -140,6 +142,7 @@ namespace IFP.Pages
                     KeyValuePair<string, ProductVariant> variantKVP = (KeyValuePair<string, ProductVariant>)comboBox.SelectedItem;
                     ProductVariant pv = variantKVP.Value;
 
+                    VariantBarcodeBox.Text = pv.Barcode;
                     VariantTypeBox.Text = pv.VariantType;
                     VariantDataBox.Text = pv.VariantData;
                     VendorStockBox.Text = pv.VendorStock.ToString();
@@ -150,6 +153,7 @@ namespace IFP.Pages
                 }
                 else
                 {
+                    VariantBarcodeBox.Text = null;
                     VariantTypeBox.Text = null;
                     VariantDataBox.Text = null;
                     VendorStockBox.Text = null;

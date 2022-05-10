@@ -46,6 +46,8 @@ namespace IFP.Pages
             VendorBox.IsReadOnly = false;
             SelectCategoryButton.IsEnabled = true;
 
+            DeliveryTimeBox.IsReadOnly = false;
+
             WeightBox.IsReadOnly = false;
             LenghtBox.IsReadOnly = false;
             HeightBox.IsReadOnly = false;
@@ -103,6 +105,7 @@ namespace IFP.Pages
             DescBoxRU.TextChanged += SaveFlip_TextChanged;
 
             VendorBox.TextChanged += SaveFlip_TextChanged;
+            DeliveryTimeBox.TextChanged += SaveFlip_TextChanged;
 
             WeightBox.TextChanged += SaveFlip_TextChanged;
             HeightBox.TextChanged += SaveFlip_TextChanged;
@@ -121,7 +124,7 @@ namespace IFP.Pages
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void SaveFlip_TextChanged(object sender, TextChangedEventArgs e)
+        protected void SaveFlip_TextChanged(object sender, TextChangedEventArgs e)
         {
             ProductChanged = true;
         }
@@ -131,7 +134,7 @@ namespace IFP.Pages
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void SaveFlipComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        protected void SaveFlipComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ProductChanged = true;
         }
@@ -352,7 +355,7 @@ namespace IFP.Pages
             //adding vendor type and added date
             newProduct.AddedTimeStamp = EditableProduct.AddedTimeStamp;
             newProduct.ProductTypeVendor = EditableProduct.ProductTypeVendor;
-            newProduct.DeliveryTime = EditableProduct.DeliveryTime;
+            newProduct.DeliveryTime = DeliveryTimeBox.Text;
 
             //saving variants and attributes
             newProduct.ProductVariants = EditableVariantsKVP.Values.ToList();

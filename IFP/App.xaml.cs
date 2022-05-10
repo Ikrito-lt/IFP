@@ -1,4 +1,5 @@
 ﻿using IFP.Pages;
+using IFP.Singletons;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -20,6 +21,7 @@ namespace IFP
 
             // starting loading products from database
             var _ = ProductBrowsePage.Instance;
+            var __ = ProductCategoryStore.Instance;
         }
 
         private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)

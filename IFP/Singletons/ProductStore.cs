@@ -27,9 +27,10 @@ namespace IFP.Singletons
         /// <summary>
         /// Method for refreashing product KVP
         /// </summary>
-        public void GetProductKVP()
+        public bool GetProductKVP()
         {
             ProductKVP = GetAllProducts();
+            return true;
         }
 
         //todo: this is slow consider multithreading
@@ -41,8 +42,8 @@ namespace IFP.Singletons
         {
             Dictionary<string, FullProduct> p = new();
 
-            Dictionary<string, FullProduct> TDBproducts = GetVendorProducts("TDB");
-            p.AddRange(TDBproducts);
+            Dictionary<string, FullProduct> IKRproducts = GetVendorProducts("IKR");
+            p.AddRange(IKRproducts);
 
             Dictionary<string, FullProduct> KGproducts = GetVendorProducts("KG");
             p.AddRange(KGproducts);
@@ -608,7 +609,8 @@ namespace IFP.Singletons
                 ["Lenght"] = p.Lenght.ToString(),
                 ["Width"] = p.Width.ToString(),
                 ["AddedTimeStamp"] = p.AddedTimeStamp,
-                ["ProductTypeVendor"] = p.ProductTypeVendor
+                ["ProductTypeVendor"] = p.ProductTypeVendor,
+                ["DeliveryTimeText"] = p.DeliveryTime
 
             };
             var whereUpdate = new Dictionary<string, Dictionary<string, string>>

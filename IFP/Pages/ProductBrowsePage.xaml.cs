@@ -85,20 +85,27 @@ namespace IFP.Pages
                 //unblocking refresh button and unanimating loading bar
                 loadingbarLabel.Text = "";
                 loadingBar.IsIndeterminate = false;
-                RefreshButton.IsEnabled = true;
+                
                 BulkCategoryEditButton.IsEnabled = true;
                 PiguIntegrationButton.IsEnabled = true;
+                NewProductButton.IsEnabled = true;
+
+                RefreshButton.IsEnabled = true;
                 RemoveFilters.IsEnabled = true;
                 SelectCategoryButton.IsEnabled = true;
+                
                 Debug.WriteLine("BGW_PreloadAllProducts Finished");
             };
 
             //blocking refresh button and animating loading bar
             loadingBar.IsIndeterminate = true;
-            RefreshButton.IsEnabled = false;
             loadingbarLabel.Text = "Loading Products";
+
             BulkCategoryEditButton.IsEnabled = false;
             PiguIntegrationButton.IsEnabled = false;
+            NewProductButton.IsEnabled = false;
+
+            RefreshButton.IsEnabled = false;
             RemoveFilters.IsEnabled = false;
             SelectCategoryButton.IsEnabled = false;
 
@@ -164,7 +171,7 @@ namespace IFP.Pages
         /// <param name="e"></param>
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.Instance.mainFrame.Content = MainPage.Instance;
+            MainWindow.Instance.setFrame(MainPage.Instance);
         }
 
         /// <summary>
@@ -176,7 +183,7 @@ namespace IFP.Pages
         {
             DataGridRow row = sender as DataGridRow;
             FullProduct product = row.Item as FullProduct;
-            MainWindow.Instance.mainFrame.Content = new ProductInfoPage(product, this);
+            MainWindow.Instance.setFrame(new ProductInfoPage(product, this));
         }
 
         /// <summary>
@@ -186,7 +193,7 @@ namespace IFP.Pages
         /// <param name="e"></param>
         private void BulkCategoryEditButton_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.Instance.mainFrame.Content = new ProductBulkEditPage();
+            MainWindow.Instance.setFrame(new ProductBulkEditPage());
         }
 
         /// <summary>
@@ -197,6 +204,16 @@ namespace IFP.Pages
         private void OpenPiguIntegrationPage(object sender, RoutedEventArgs e)
         {
             MainWindow.Instance.setFrame(new PiguIntegrationPage());
+        }
+
+        /// <summary>
+        /// Opens NewProductPage
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NewProductButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow.Instance.setFrame(new NewProductPage(this));
         }
 
 

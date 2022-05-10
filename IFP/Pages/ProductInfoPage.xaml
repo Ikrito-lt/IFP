@@ -102,45 +102,51 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="135"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="Vendor: " Margin="5" Padding="3" FontWeight="Bold"/>
                         <TextBox Grid.Column="1" x:Name="VendorBox" IsReadOnly="true" VerticalAlignment="Center" Padding="3"/>
+                        
+                        <TextBlock Grid.Column="2" Text="SKU: " Margin="5" Padding="3" FontWeight="Bold"/>
+                        <TextBox Grid.Column="3" x:Name="SKUBox" IsReadOnly="true" VerticalAlignment="Center" Padding="3"/>
                     </Grid>
 
                     <Grid Margin="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="135"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="Added Time: " Margin="5" Padding="3" FontWeight="Bold"/>
-                        <Label Grid.Column="1" x:Name="AddedTimeLabel" Content="" VerticalAlignment="Center" Padding="3"/>
+                        <TextBlock Grid.Column="0" Text="Vendor Type: " Margin="5" Padding="3" FontWeight="Bold"/>
+                        <TextBox Grid.Column="1" x:Name="VendorProductTypeBox" IsReadOnly="True" VerticalAlignment="Center" Padding="3"/>
 
-                        <TextBlock Grid.Column="2" Text="Delivery Time: " Margin="5" Padding="3" FontWeight="Bold"/>
-                        <Label Grid.Column="3" x:Name="DeliveryTimeLabel" Content="" VerticalAlignment="Center" Padding="3"/>
+                        <TextBlock Grid.Column="2" Text="Added Time: " Margin="5" Padding="3" FontWeight="Bold"/>
+                        <TextBox Grid.Column="3" x:Name="AddedTimeBox" IsReadOnly="True" VerticalAlignment="Center" Padding="3"/>
                     </Grid>
 
                     <Grid Margin="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="135"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="Product Type: " Margin="5" Padding="3" FontWeight="Bold"/>
                         <Button Grid.Column="1" IsEnabled="False" x:Name="SelectCategoryButton" Click="SelectCategoryButton_Click" Content="Select Category" Padding="5" HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"/>
 
-                        <TextBlock Grid.Column="2" Text="Vendor Type: " Margin="5" Padding="3" FontWeight="Bold"/>
-                        <Label Grid.Column="3" x:Name="VendorProductTypeLabel" Content="" VerticalAlignment="Center" Padding="3"/>
+                        <TextBlock Grid.Column="2" Text="Delivery Time (days): " Margin="5" Padding="3" FontWeight="Bold"/>
+                        <TextBox Grid.Column="3" x:Name="DeliveryTimeBox" IsReadOnly="True" VerticalAlignment="Center" Padding="3"/>
+
                     </Grid>
 
                     <Grid Margin="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="135"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="Weight (kg): " Margin="5" Padding="3" FontWeight="Bold"/>
@@ -153,7 +159,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="135"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="Lenght (mm): " Margin="5" Padding="3" FontWeight="Bold"/>
@@ -165,10 +171,10 @@
 
                     <Grid Margin="0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="65"/>
+                            <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="30"/>
-                            <ColumnDefinition Width="65"/>
+                            <ColumnDefinition Width="105"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="30"/>
                         </Grid.ColumnDefinitions>
@@ -228,7 +234,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="100"/>
-                <RowDefinition Height="380"/>
+                <RowDefinition Height="415"/>
             </Grid.RowDefinitions>
 
             <!--attributters border-->
@@ -335,6 +341,7 @@
                         <RowDefinition Height="35"/>
                         <RowDefinition Height="35"/>
                         <RowDefinition Height="35"/>
+                        <RowDefinition Height="35"/>
                     </Grid.RowDefinitions>
 
                     <TextBox x:Name="ProductVariantsLabel" Text="Product Attributtes" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Center">
@@ -361,11 +368,20 @@
                             <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="Variant Barcode: " Margin="5" Padding="3"/>
+                        <TextBox Grid.Column="1" x:Name="VariantBarcodeBox" IsReadOnly="True" VerticalAlignment="Center" Padding="3" PreviewTextInput="IntPreviewTextInput"/>
+                    </Grid>
+                    
+                    <Grid Margin="0" Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="Variant Type: " Margin="5" Padding="3"/>
                         <TextBox Grid.Column="1" x:Name="VariantTypeBox" IsReadOnly="True" VerticalAlignment="Center" Padding="3"/>
                     </Grid>
 
-                    <Grid Margin="0" Grid.Row="3">
+                    <Grid Margin="0" Grid.Row="4">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="*"/>
@@ -374,7 +390,7 @@
                         <TextBox Grid.Column="1" x:Name="VariantDataBox" IsReadOnly="True" VerticalAlignment="Center" Padding="3"/>
                     </Grid>
 
-                    <Grid Margin="0" Grid.Row="4">
+                    <Grid Margin="0" Grid.Row="5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="*"/>
@@ -383,7 +399,7 @@
                         <TextBox Grid.Column="1" x:Name="VendorStockBox" IsEnabled="False" VerticalAlignment="Center" Padding="3" PreviewTextInput="IntPreviewTextInput"/>
                     </Grid>
 
-                    <Grid Margin="0" Grid.Row="5">
+                    <Grid Margin="0" Grid.Row="6">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="*"/>
@@ -392,7 +408,7 @@
                         <TextBox Grid.Column="1" x:Name="OurStockBox" IsReadOnly="True" VerticalAlignment="Center" Padding="3" PreviewTextInput="IntPreviewTextInput"/>
                     </Grid>
 
-                    <Grid Margin="0" Grid.Row="6">
+                    <Grid Margin="0" Grid.Row="7">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="*"/>
@@ -402,7 +418,7 @@
 
                     </Grid>
 
-                    <Grid Margin="0" Grid.Row="7">
+                    <Grid Margin="0" Grid.Row="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="*"/>
@@ -411,7 +427,7 @@
                         <TextBox Grid.Column="1" x:Name="VendorPriceBox" IsEnabled="False" VerticalAlignment="Center" Padding="3" PreviewTextInput="DoublePreviewTextInput"/>
                     </Grid>
 
-                    <Grid Margin="0" Grid.Row="8">
+                    <Grid Margin="0" Grid.Row="9">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="*"/>
@@ -419,7 +435,7 @@
                         <CheckBox Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" x:Name="PermPriceCheckBox" IsEnabled="False" Margin="5" VerticalAlignment="Center" Content="Make Product Price Permament"/>
                     </Grid>
 
-                    <Grid Margin="0" Grid.Row="9">
+                    <Grid Margin="0" Grid.Row="10">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*"/>
                             <ColumnDefinition Width="*"/>
