@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 using static IFP.Models.FullProduct;
+using System.Linq;
 
 namespace IFP.Modules.Supplier.BeFancy
 {
@@ -260,7 +261,9 @@ namespace IFP.Modules.Supplier.BeFancy
 
             newProduct.ProductTypeVendor = bfProduct.category;
             newProduct.Images = bfProduct.imageURLs;
-            newProduct.ProductAttributtes = bfProduct.attributes;
+
+            //adding product attributes
+            bfProduct.attributes.ToList().ForEach(a => newProduct.ProductAttributtes.Add(new ProductAttribute(a.Key, a.Value)));
 
             //adding only one variant
             ProductVariant productVariant = new ProductVariant();
@@ -305,7 +308,9 @@ namespace IFP.Modules.Supplier.BeFancy
 
             newProduct.ProductTypeVendor = bfProduct.category;
             newProduct.Images = bfProduct.imageURLs;
-            newProduct.ProductAttributtes = bfProduct.attributes;
+
+            //adding product attributes
+            bfProduct.attributes.ToList().ForEach(a => newProduct.ProductAttributtes.Add(new ProductAttribute(a.Key, a.Value)));
 
             //BF has same prive for all variants
             double vendorPrice = Math.Round(bfProduct.price, 2, MidpointRounding.AwayFromZero);

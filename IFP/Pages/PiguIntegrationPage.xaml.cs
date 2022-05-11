@@ -445,7 +445,7 @@ namespace IFP.Pages
             }
 
             //loading attributtes
-            var productAttributesArray = from row in selectedProduct.ProductAttributtes select new { AttributeName = row.Key, AttributeValue = row.Value };
+            var productAttributesArray = from row in selectedProduct.ProductAttributtes select new { AttributeName = row.Name, AttributeValue = row.Attribute};
             productAttributesDG.ItemsSource = productAttributesArray.ToArray();
 
             //loading images

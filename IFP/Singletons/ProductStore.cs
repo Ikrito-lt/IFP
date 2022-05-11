@@ -153,7 +153,8 @@ namespace IFP.Singletons
                 string name = row["Name"];
                 string data = row["Data"];
 
-                productsKVP[sku].ProductAttributtes.Add(name, data);
+                var newAttr = new ProductAttribute(name, data);
+                productsKVP[sku].ProductAttributtes.Add(newAttr);
             }
 
             //getting products statuses
@@ -471,7 +472,8 @@ namespace IFP.Singletons
             result = db.Table("_" + tablePrefix + "_Attributes").Where(whereCond).Get();
             foreach (var row in result.Values)
             {
-                prod.ProductAttributtes.Add(row["Name"], row["Data"]);
+                var newAttr = new ProductAttribute(row["Name"], row["Data"]);
+                prod.ProductAttributtes.Add(newAttr);
             }
 
             return prod;
@@ -565,13 +567,13 @@ namespace IFP.Singletons
             }
 
             //add new attributes
-            foreach (var attrKVP in p.ProductAttributtes)
+            foreach (var attr in p.ProductAttributtes)
             {
                 var insertData = new Dictionary<string, string>
                 {
                     ["SKU"] = p.SKU,
-                    ["Name"] = SQLUtil.SQLSafeString(attrKVP.Key),
-                    ["Data"] = SQLUtil.SQLSafeString(attrKVP.Value)
+                    ["Name"] = SQLUtil.SQLSafeString(attr.Name),
+                    ["Data"] = SQLUtil.SQLSafeString(attr.Attribute)
                 };
                 db.Table($"_{tablePrefix}_Attributes").Insert(insertData);
             }
@@ -734,13 +736,13 @@ namespace IFP.Singletons
             }
 
             //add new attributes
-            foreach (var attrKVP in p.ProductAttributtes)
+            foreach (var attr in p.ProductAttributtes)
             {
                 var insertData = new Dictionary<string, string>
                 {
                     ["SKU"] = p.SKU,
-                    ["Name"] = attrKVP.Key,
-                    ["Data"] = attrKVP.Value
+                    ["Name"] = attr.Name,
+                    ["Data"] = attr.Attribute
                 };
                 db.Table($"_{tablePrefix}_Attributes").Insert(insertData);
             }

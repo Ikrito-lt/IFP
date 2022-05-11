@@ -327,7 +327,8 @@ namespace IFP.Modules.Supplier.TDBaltic
 
                     //adding variant and product attributes to the product model
                     foreach (KeyValuePair<string,string> pDataKVP in newProdDataKVP) {
-                        newProduct.ProductAttributtes.Add(pDataKVP.Key, SQLUtil.SQLSafeString(pDataKVP.Value));
+                        var newAttr = new ProductAttribute(pDataKVP.Key, SQLUtil.SQLSafeString(pDataKVP.Value));
+                        newProduct.ProductAttributtes.Add(newAttr);
                     }
 
                     newProduct.ProductVariants.Add(newVariant);

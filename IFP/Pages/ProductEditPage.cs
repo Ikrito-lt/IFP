@@ -4,6 +4,7 @@ using IFP.UI;
 using Microsoft.VisualStudio.PlatformUI;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
@@ -22,6 +23,7 @@ namespace IFP.Pages
             MainWindow.Instance.SetWindowTitle($"Product Edit Page ({product.SKU})");
             MakePageEditable();
             AddProductChangedCheck();
+            InitProductAttributeDG();
         }
 
 
@@ -112,7 +114,7 @@ namespace IFP.Pages
             WidthBox.TextChanged += SaveFlip_TextChanged;
             LenghtBox.TextChanged += SaveFlip_TextChanged;
 
-            //adding category KVP to product type combobox
+            // adding category KVP to product type combobox
             ProductStatusComboBox.SelectionChanged += SaveFlipComboBox_SelectionChanged;
         }
 
@@ -357,9 +359,12 @@ namespace IFP.Pages
             newProduct.ProductTypeVendor = EditableProduct.ProductTypeVendor;
             newProduct.DeliveryTime = DeliveryTimeBox.Text;
 
-            //saving variants and attributes
+            //saving variants
             newProduct.ProductVariants = EditableVariantsKVP.Values.ToList();
-            newProduct.ProductAttributtes = EditableProduct.ProductAttributtes;
+
+            //saving product attributes
+            AttributeDataGridDataSource.RemoveAll(x => string.IsNullOrWhiteSpace(x.Name) || string.IsNullOrWhiteSpace(x.Attribute));
+            newProduct.ProductAttributtes = AttributeDataGridDataSource;
 
             //saving product util fields
             newProduct.Status = EditableProduct.Status;
@@ -373,6 +378,61 @@ namespace IFP.Pages
             ProductStore.UpdateProductToDB(newProduct, newProduct.Status);
             ProductStore.Instance.ProductKVP[newProduct.SKU] = newProduct;
         }
+
+
+        // Product Attiributtes section
+
+        /// <summary>
+        /// Init method for Product attribute datagrid
+        /// </summary>
+        protected void InitProductAttributeDG() {
+            productAttributesDG.IsReadOnly = false;
+            SaveAttributeButton.IsEnabled = true;
+            AddAttributeButton.IsEnabled = true;
+        }
+
+        /// <summary>
+        /// (Overridden) Button to save Product Attributes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected override void SaveAttributeButton_Click(object sender, RoutedEventArgs e) {
+            ProductChanged = true;
+            AttributeDataGridDataSource.RemoveAll(x => string.IsNullOrWhiteSpace(x.Name) || string.IsNullOrWhiteSpace(x.Attribute));
+            productAttributesDG.ItemsSource = AttributeDataGridDataSource;
+            productAttributesDG.Items.Refresh();
+
+            //adding animation
+            SaveAttributeLabel.Visibility = Visibility.Visible;
+            BackgroundWorker worker = new();
+            worker.DoWork += (sender, e) =>
+            {
+                //wait for 3s
+                System.Threading.Thread.Sleep(3000);
+            };
+            worker.RunWorkerCompleted += (sender, e) =>
+            {
+                SaveAttributeLabel.Visibility = Visibility.Collapsed;
+            };
+            worker.RunWorkerAsync();
+        }
+
+        /// <summary>
+        /// (Overridden) Button to add new product attribute
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected override void AddAttributeButton_Click(object sender, RoutedEventArgs e) {
+            ProductChanged = true;
+            AttributeDataGridDataSource.Add(new ProductAttribute("", ""));
+            productAttributesDG.ItemsSource = AttributeDataGridDataSource;
+            productAttributesDG.Items.Refresh();
+        }
+
+
+
+
+
 
         //todo: add editing to product attributtes
     }

@@ -38,8 +38,7 @@ namespace IFP.Models
         public List<string> Tags = new();
         public List<string> Images = new();
         public List<ProductVariant> ProductVariants = new();
-
-        public Dictionary<string, string> ProductAttributtes = new();
+        public List<ProductAttribute> ProductAttributtes = new();
 
         //for util
         public string Status { set; get; }              //for product status as in sync Status
@@ -51,6 +50,22 @@ namespace IFP.Models
         public string FirstVariantVendorStock => ProductVariants?.Count > 0 ? ProductVariants.First().VendorStock.ToString() : "NaN";
         public string FirstVariantPrice => ProductVariants?.Count > 0 ? ProductVariants.First().Price.ToString() : "NaN";
         public string FirstVariantVendorPrice => ProductVariants?.Count > 0 ? ProductVariants.First().PriceVendor.ToString() : "NaN";
+
+
+        /// <summary>
+        /// For describing product attributtes
+        /// </summary>
+        public class ProductAttribute
+        {
+            public string Name { set; get; }
+            public string Attribute { set; get; }
+
+            public ProductAttribute(string name, string attr) { 
+                this.Name = name;
+                this.Attribute = attr;
+            }
+        }
+
 
         /// <summary>
         /// class for describing product variants
@@ -76,7 +91,6 @@ namespace IFP.Models
             }
         }
 
-        //TODO: think about adding SEO shit
 
         // For creating new product inside the app
         public FullProduct(bool creatingNew = false) {

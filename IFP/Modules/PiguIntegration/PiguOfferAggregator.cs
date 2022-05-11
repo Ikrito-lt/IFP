@@ -200,8 +200,8 @@ namespace IFP.Modules.PiguIntegration
                 foreach (var prop in product.ProductAttributtes)
                 {
                     xPiguProductProperty xProp = new xPiguProductProperty();
-                    xProp.IDstr = prop.Key;
-                    xProp.values.Add(prop.Value);
+                    xProp.IDstr = prop.Name;
+                    xProp.values.Add(prop.Attribute);
                     xpp.properties.Add(xProp);
                 }
 

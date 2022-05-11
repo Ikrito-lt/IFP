@@ -243,6 +243,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="35"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="35"/>
                     </Grid.RowDefinitions>
 
                     <TextBox x:Name="ProductAttributtesLabel" Text="Product Attributtes" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Center">
@@ -259,7 +260,7 @@
                           VerticalAlignment="Stretch" AutoGenerateColumns="False" IsReadOnly="True">
                         <DataGrid.Columns>
 
-                            <DataGridTextColumn Binding="{Binding AttributeName}" Header="Attribute Name" Width="*">
+                            <DataGridTextColumn Binding="{Binding Name}" Header="Attribute Name" Width="*">
                                 <DataGridTextColumn.ElementStyle>
                                     <Style TargetType="TextBlock">
                                         <Setter Property="HorizontalAlignment" Value="Left"/>
@@ -276,7 +277,7 @@
                                 </DataGridTextColumn.HeaderStyle>
                             </DataGridTextColumn>
 
-                            <DataGridTextColumn Binding="{Binding AttributeValue}" Header="Attribute Value" Width="2*">
+                            <DataGridTextColumn Binding="{Binding Attribute}" Header="Attribute Value" Width="2*">
                                 <DataGridTextColumn.ElementStyle>
                                     <Style TargetType="TextBlock">
                                         <Setter Property="HorizontalAlignment" Value="Left" />
@@ -294,6 +295,22 @@
                             </DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
+
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button x:Name="SaveAttributeButton" Grid.Column="0" IsEnabled="False" Click="SaveAttributeButton_Click" Content="Save Attributtes" Padding="15,5,15,5"  Width="120" 
+                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                        <emoji:TextBlock x:Name="SaveAttributeLabel" Grid.Column="1" FontSize="12" Text="Attributes Saved✅" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed"/>
+
+                        <Button x:Name="AddAttributeButton" Grid.Column="2" IsEnabled="False" Click="AddAttributeButton_Click" Content="Add Attributte" Padding="15,5,15,5"  Width="120"
+                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
                 </Grid>
             </Border>
 

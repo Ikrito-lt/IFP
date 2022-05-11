@@ -327,7 +327,8 @@ namespace IFP.Modules.Supplier.KotrynaGroup
 
             //if properties arent empty add them
             if (PI.properties.Count > 0) {
-                newProduct.ProductAttributtes = PI.properties;
+                //adding product attributes
+                PI.properties.ToList().ForEach(a => newProduct.ProductAttributtes.Add(new ProductAttribute(a.Key, a.Value)));
             }
 
             return newProduct;

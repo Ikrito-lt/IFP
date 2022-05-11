@@ -23,6 +23,7 @@ namespace IFP.Pages
         protected readonly Page PreviousPage;
         protected Tuple<int?, string> ProductType = new(null, null);
 
+        
         //for storing product variants and statuses
         protected Dictionary<string, ProductVariant> EditableVariantsKVP = new();
         protected List<string> ProductStatuses = ProductStatus.GetFields();
@@ -39,6 +40,10 @@ namespace IFP.Pages
         protected List<string> ProductTags;
         protected ObservableCollection<string> TagListBoxDataSource;
         public ICommand DeleteTagCommand { get; set; }
+
+
+        //for product attribute dabagrid
+        protected List<ProductAttribute> AttributeDataGridDataSource = new();
 
 
         //Constructor
@@ -105,8 +110,13 @@ namespace IFP.Pages
             TagListBox.ItemsSource = TagListBoxDataSource;
 
             //adding attributtes to data grid
-            var productAttributesArray = from row in EditableProduct.ProductAttributtes select new { AttributeName = row.Key, AttributeValue = row.Value };
-            productAttributesDG.ItemsSource = productAttributesArray.ToArray();
+            //var productAttributesArray = from row in EditableProduct.ProductAttributtes select new { AttributeName = row.Key, AttributeValue = row.Value };
+            //productAttributesDG.ItemsSource = productAttributesArray.ToArray();
+
+            foreach (var attr in EditableProduct.ProductAttributtes) {
+                AttributeDataGridDataSource.Add(attr);
+            }
+            productAttributesDG.ItemsSource = AttributeDataGridDataSource;
 
             //setting attributte and variant labels
             ProductAttributtesLabel.Text = $"Product Attributtes ({EditableProduct.SKU})";
@@ -343,5 +353,19 @@ namespace IFP.Pages
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected virtual void SaveVariantButton_Click(object sender, RoutedEventArgs e) { }
+
+        /// <summary>
+        /// (Overridden) Button to save Product Attributes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected virtual void SaveAttributeButton_Click(object sender, RoutedEventArgs e) { }
+
+        /// <summary>
+        /// (Overridden) Button to add new product attribute
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected virtual void AddAttributeButton_Click(object sender, RoutedEventArgs e) { }
     }
 }
