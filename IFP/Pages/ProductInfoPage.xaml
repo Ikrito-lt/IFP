@@ -138,7 +138,7 @@
                         VerticalAlignment="Center"/>
 
                         <TextBlock Grid.Column="2" Text="Delivery Time (days): " Margin="5" Padding="3" FontWeight="Bold"/>
-                        <TextBox Grid.Column="3" x:Name="DeliveryTimeBox" IsReadOnly="True" VerticalAlignment="Center" Padding="3"/>
+                        <TextBox Grid.Column="3" x:Name="DeliveryTimeBox" IsReadOnly="True" VerticalAlignment="Center" Padding="3" PreviewTextInput="IntPreviewTextInput"/>
 
                     </Grid>
 
@@ -359,7 +359,7 @@
                             <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="Variant Barcode: " Margin="5" Padding="3"/>
+                        <TextBlock Grid.Column="0" Text="Variant: " Margin="5" Padding="3"/>
                         <ComboBox Grid.Column="1" x:Name="ProductVariantComboBox" Margin="0,5,0,5" ItemsSource="{Binding}" SelectedValuePath="Value" DisplayMemberPath="Key"/>
                     </Grid>
 

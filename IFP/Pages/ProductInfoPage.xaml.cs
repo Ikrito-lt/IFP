@@ -125,7 +125,7 @@ namespace IFP.Pages
         /// <summary>
         /// Method to initialize product variant UX
         /// </summary>
-        private void InitVariants()
+        protected virtual void InitVariants()
         {
             EditableVariantsKVP.Clear();
             foreach (var pv in EditableProduct.ProductVariants)

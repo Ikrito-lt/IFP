@@ -317,7 +317,7 @@ namespace IFP.Pages
         }
 
 
-        // Savinf Product Section
+        // Saving Product Section
 
         /// <summary>
         /// Collects data from UI and creates new product object, saves it to database and ProductStore  
