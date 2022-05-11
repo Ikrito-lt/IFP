@@ -114,7 +114,7 @@ namespace IFP.Pages
             //productAttributesDG.ItemsSource = productAttributesArray.ToArray();
 
             foreach (var attr in EditableProduct.ProductAttributtes) {
-                AttributeDataGridDataSource.Add(attr);
+                AttributeDataGridDataSource.Add(new ProductAttribute(attr.Name, attr.Attribute));
             }
             productAttributesDG.ItemsSource = AttributeDataGridDataSource;
 

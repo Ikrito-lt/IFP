@@ -316,6 +316,8 @@ namespace IFP.Pages
                     NavigateToPreviousPage();
                 }
             }
+
+            var a = ProductStore.Instance.ProductKVP[EditableProduct.SKU];
         }
 
 
@@ -428,12 +430,5 @@ namespace IFP.Pages
             productAttributesDG.ItemsSource = AttributeDataGridDataSource;
             productAttributesDG.Items.Refresh();
         }
-
-
-
-
-
-
-        //todo: add editing to product attributtes
     }
 }
