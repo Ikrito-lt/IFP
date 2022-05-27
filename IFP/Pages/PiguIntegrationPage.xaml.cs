@@ -9,6 +9,7 @@ using Microsoft.VisualStudio.PlatformUI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -161,7 +162,7 @@ namespace IFP.Pages
                 }
             };
             var r = db.Table("PiguIntegrationMetadata").Where(where).Get();
-            var lastGenTimeStr = DateTime.Parse(r[0]["LastUpdatedDate"]);
+            var lastGenTimeStr = DateTime.Parse(r[0]["LastUpdatedDate"], new CultureInfo("en-GB"));
             LastXmlGenTimeTB.Text = $"Last Xml Generation Time: {lastGenTimeStr}";
         }
 

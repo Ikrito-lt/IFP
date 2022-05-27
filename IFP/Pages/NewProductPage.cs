@@ -219,6 +219,7 @@ namespace IFP.Pages
         {
             SaveProduct();
             ProductChanged = false;
+            NavigateToPreviousPage();
         }
 
         /// <summary>
@@ -228,8 +229,17 @@ namespace IFP.Pages
         private void SaveProduct()
         {
             FullProduct newProduct = new();
+
             //adding sku
             newProduct.SKU = SKUBox.Text;
+
+            //checking if sku was changed
+            if (newProduct.SKU == "IKR-") {
+                var DialogOKBox = new DialogueOK("Select new SKU");
+                DialogOKBox.ShowDialog();
+
+                return;
+            }
 
             //adding string values
             newProduct.TitleLT = TitleBoxLT.Text;

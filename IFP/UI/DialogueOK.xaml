@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IFP.UI"
         mc:Ignorable="d"
-        Title="" Height="450" Width="800">
+        Title="" Height="250" Width="300">
     
     <Grid Margin="0"   Background="GhostWhite">
         <StackPanel Orientation="Vertical" Margin="15,15,15,0">

@@ -364,3 +364,82 @@ FodyWeavers.xsd
 
 # Added By Me
 !Deployment/**
+ClickOnce/**
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_0/clrcompression.dll.deploy
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_0/clrjit.dll.deploy
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_0/coreclr.dll.deploy
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_0/D3DCompiler_47_cor3.dll.deploy
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_0/IFP.dll.manifest
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_0/IFP.exe.deploy
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_0/Launcher.exe.deploy
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_0/mscordaccore.dll.deploy
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_0/PenImc_cor3.dll.deploy
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_0/PresentationNative_cor3.dll.deploy
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_0/vcruntime140_cor3.dll.deploy
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_0/wpfgfx_cor3.dll.deploy
+/Deployment/ClickOnce/clrcompression.dll
+/Deployment/ClickOnce/clrjit.dll
+/Deployment/ClickOnce/coreclr.dll
+/Deployment/ClickOnce/D3DCompiler_47_cor3.dll
+/Deployment/ClickOnce/IFP.application
+/Deployment/ClickOnce/IFP.deps.json
+/Deployment/ClickOnce/IFP.exe
+/Deployment/ClickOnce/IFP.pdb
+/Deployment/ClickOnce/Launcher.exe
+/Deployment/ClickOnce/mscordaccore.dll
+/Deployment/ClickOnce/PenImc_cor3.dll
+/Deployment/ClickOnce/PresentationNative_cor3.dll
+/Deployment/ClickOnce/setup.exe
+/Deployment/ClickOnce/vcruntime140_cor3.dll
+/Deployment/ClickOnce/wpfgfx_cor3.dll
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_1/clrcompression.dll.deploy
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_1/clrjit.dll.deploy
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_1/coreclr.dll.deploy
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_1/D3DCompiler_47_cor3.dll.deploy
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_1/IFP.dll.manifest
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_1/IFP.exe.deploy
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_1/Launcher.exe.deploy
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_1/mscordaccore.dll.deploy
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_1/PenImc_cor3.dll.deploy
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_1/PresentationNative_cor3.dll.deploy
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_1/vcruntime140_cor3.dll.deploy
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_1/wpfgfx_cor3.dll.deploy
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_2/clrcompression.dll
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_2/clrjit.dll
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_2/coreclr.dll
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_2/D3DCompiler_47_cor3.dll
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_2/IFP.dll.manifest
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_2/IFP.exe
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_2/Launcher.exe
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_2/PenImc_cor3.dll
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_2/PresentationNative_cor3.dll
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_2/mscordaccore.dll
+/Deployment/ClickOnce/Cash_icon.ico
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_4/wpfgfx_cor3.dll
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_4/vcruntime140_cor3.dll
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_4/PresentationNative_cor3.dll
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_4/PenImc_cor3.dll
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_4/mscordaccore.dll
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_4/Launcher.exe
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_4/IFP.exe
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_4/IFP.dll.manifest
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_4/D3DCompiler_47_cor3.dll
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_4/coreclr.dll
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_4/clrjit.dll
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_4/clrcompression.dll
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_4/Cash_icon.ico
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_3/wpfgfx_cor3.dll
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_3/vcruntime140_cor3.dll
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_3/PresentationNative_cor3.dll
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_3/PenImc_cor3.dll
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_3/mscordaccore.dll
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_3/Launcher.exe
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_3/IFP.exe
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_3/IFP.dll.manifest
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_3/D3DCompiler_47_cor3.dll
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_3/coreclr.dll
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_3/clrjit.dll
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_3/clrcompression.dll
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_3/Cash_icon.ico
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_2/wpfgfx_cor3.dll
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_2/vcruntime140_cor3.dll

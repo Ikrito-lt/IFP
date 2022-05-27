@@ -39,6 +39,12 @@
 		<None Include="Cash_icon.png" Pack="true" PackagePath=""/>
 	</ItemGroup>-->
 
+	<ItemGroup>
+		<None Update="Cash_icon.ico">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
 	<!--added from squirrel tutorial-->
 	<PropertyGroup>
 		<NugetTools>$(PkgNuGet_CommandLine)\tools</NugetTools>
