@@ -130,7 +130,7 @@ namespace IFP.Pages
         private void UpdateLastGeneratedXmlTimestamp()
         {
             var now = DateTime.Now;
-            var nowStr = now.ToString();
+            var nowStr = now.ToString(new CultureInfo("en-GB"));
 
             //updating value in the database
             DataBaseInterface db = new();

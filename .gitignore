@@ -364,7 +364,7 @@ FodyWeavers.xsd
 
 # Added By Me
 !Deployment/**
-ClickOnce/**
+/Deployment/ClickOnce/**
 /Deployment/ClickOnce/Application Files/IFP_1_0_0_0/clrcompression.dll.deploy
 /Deployment/ClickOnce/Application Files/IFP_1_0_0_0/clrjit.dll.deploy
 /Deployment/ClickOnce/Application Files/IFP_1_0_0_0/coreclr.dll.deploy
@@ -443,3 +443,16 @@ ClickOnce/**
 /Deployment/ClickOnce/Application Files/IFP_1_0_0_3/Cash_icon.ico
 /Deployment/ClickOnce/Application Files/IFP_1_0_0_2/wpfgfx_cor3.dll
 /Deployment/ClickOnce/Application Files/IFP_1_0_0_2/vcruntime140_cor3.dll
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_5/wpfgfx_cor3.dll
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_5/vcruntime140_cor3.dll
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_5/PresentationNative_cor3.dll
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_5/PenImc_cor3.dll
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_5/mscordaccore.dll
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_5/Launcher.exe
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_5/IFP.exe
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_5/IFP.dll.manifest
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_5/D3DCompiler_47_cor3.dll
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_5/coreclr.dll
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_5/clrjit.dll
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_5/clrcompression.dll
+/Deployment/ClickOnce/Application Files/IFP_1_0_0_5/Cash_icon.ico
